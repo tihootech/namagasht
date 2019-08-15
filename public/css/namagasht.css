@@ -1,0 +1,191 @@
+/* ===========================================
+	Fonts
+=========================================== */
+
+@font-face { src: url('../fonts/Yekan.woff'); font-family: 'Yekan'; }
+@font-face { src: url('../fonts/Calibri.ttf'); font-family: 'Calibri'; }
+
+/* ===========================================
+	General Styles
+=========================================== */
+
+body {
+	font-family: 'Yekan', 'Calibri';
+}
+
+select {
+	font-family: 'Yekan', 'Calibri', 'FontAwesome';
+}
+
+a {
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: none !important;
+}
+
+.hidden {
+	display: none;
+}
+
+.fa-half-x {
+	font-size: 1.5em;
+}
+
+input[disabled] {
+	cursor: not-allowed;
+}
+
+/* ===========================================
+	widths
+=========================================== */
+
+.w-30 { width: 30% }
+.w-70 { width: 70% }
+.w-33 { width: 33% }
+
+/* ===========================================
+	forms
+=========================================== */
+.edit-form-header-input {
+	background-color: inherit;
+	display: inline-block;
+	width: 200px;
+	border: 0.5px solid #333;
+	border-radius: 5px;
+	margin-right:10px;
+	color:#fff;
+	padding: 5px 15px;
+}
+
+.edit-form-header-input:focus {
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+	border: 0.5px solid #0094B5;
+	outline: none;
+}
+
+.form-panel {
+	border-left: 1px solid #aaa;
+	height: 480px;
+	overflow-y: auto;
+}
+.form-options {
+	text-align: center;
+	padding: 10px 5px;
+}
+.form-options > a {
+	display: inline-block;
+	text-align: center;
+	background-color: #f0f0f0;
+	border: 1px solid #aaa4a9;
+	border-radius : 2px;
+	color: #333;
+	height: 30px;
+	margin: 10px 5px;
+	width: 150px;
+}
+
+.form-options > a:first-child, .form-options > a:last-child {
+	display: block;
+	width:calc(100% - 5px);
+}
+
+.form-body {
+	text-align: center;
+}
+
+.form-map {
+	padding: 30px 0px;
+	background-color: #F0F0F0;
+}
+
+.form-map > div {
+	border: 2px dashed #8aa2b5;
+	border-radius: 4px;
+	margin: 0px 20px 60px 20px;
+	padding: 20px;
+	color: #555;
+}
+
+.stick-left {
+	position: absolute;
+	left: 10px;
+}
+
+.form-list-item {
+	display: inline-block;
+	width: 60%;
+	margin: 10px 30px;
+	padding: 20px;
+}
+
+.form-list-item:hover {
+	background-color: #dcf1fa;
+	cursor: pointer;
+	border-color : 1px solid #dcf1fa;
+	border-radius : 5px;
+}
+
+/* ===========================================
+	mobile switch
+=========================================== */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

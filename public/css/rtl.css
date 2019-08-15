@@ -1,0 +1,26 @@
+body {
+	direction: rtl;
+	text-align:right;
+}
+
+.modal-header .close {
+	margin: -1rem auto -1rem -1rem;
+}
+
+.breadcrumb-item+.breadcrumb-item:before {
+	padding-right: unset;
+	padding-left: .5rem;
+}
+
+.custom-file-label {
+	right: 0;
+}
+.custom-file-label:after {
+	left: 0;
+	right: unset;
+	content: attr(data-content);
+}
+.custom-file-label:after {
+	border-left:unset;
+	border-right:1px solid #ced4da;
+}
