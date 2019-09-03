@@ -1,5 +1,20 @@
 $(document).ready(function () {
 	$('[title]').tooltip();
+	$('[data-toggle=popover]').popover();
+
+	$("#file").change(function () {
+		displayImage(this);
+	});
+});
+
+$(document).on('input','#form-maker',function () {
+	$('#preview').show();
+	var type = $('#fragment-type').val();
+	if (type == 'welcome_page') {
+		$('#preview [data-yield=title]').html($('#title').val());
+		$('#preview [data-yield=description]').html($('#description').val());
+		$('#preview [data-yield=btn]').html($('#btn').val());
+	}
 });
 
 $(document).on('input','.custom-range',function () {
@@ -46,4 +61,16 @@ $(document).on('click', '[data-clone-action]', function () {
 
 function toggle(target) {
 	$('#'+target).toggleClass('hidden');
+}
+
+function displayImage(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			$('#preview [data-yield=image]').attr('src', e.target.result);
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	}
 }

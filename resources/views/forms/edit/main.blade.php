@@ -17,21 +17,24 @@
 		<a href="{{url("forms/$form->id/edit?f=priority")}}"> {{__('words.PRIORITY')}} </a>
 		<a href="{{url("forms/$form->id/edit?f=string_with_no_answer")}}"> {{__('words.STRING_WITH_NO_ANSWER')}} </a>
 		<a href="{{url("forms/$form->id/edit?f=upload_file")}}"> {{__('words.UPLOAD_FILE')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=thanks_page")}}"> {{__('words.THANKS_PAGE')}} </a>
+		<a href="{{url("forms/$form->id/edit?f=thanks_page")}}">
+			{{__('words.THANKS_PAGE')}}
+			<i class="fa fa-question-circle mirror-rotate mr-1" data-toggle="popover" data-content="{{__('messages.TNX_PAGE_POPOVER')}}" data-placement="top" data-trigger="hover" data-original-title="" title=""></i>
+		</a>
 	</div>
 @endsection
 
 @section('form-body')
 	<div class="form-map">
-		<div class="">
+		<div class="header-footer">
 			{{__('messages.DRAG_WELCOME_PAGE')}}
 		</div>
 
-		<div class="">
+		<div class="question-type">
 			{{__('messages.DRAG_QUESTION_TYPE')}}
 		</div>
 
-		<div class="">
+		<div class="header-footer">
 			{{__('messages.DRAG_THANKS_PAGE')}}
 		</div>
 	</div>

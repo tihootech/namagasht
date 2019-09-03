@@ -1,7 +1,7 @@
 @extends('layouts.namagasht')
 @section('main')
 
-	<header class="bg-dark text-light text-center p-2">
+	<header class="form-header">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-3">
@@ -10,50 +10,57 @@
 					</a>
 					<input type="text" name="name" value="{{$form->name}}" class="edit-form-header-input">
 				</div>
-				<div class="col-md-6">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"> {{__('words.CREATE')}} </li>
-						<li class="breadcrumb-item"><a href="#"> {{__('words.DESIGN')}} </a></li>
-						<li class="breadcrumb-item"><a href="#"> {{__('words.DESIGN')}} </a></li>
-						<li class="breadcrumb-item"><a href="#"> {{__('words.SETTINGS')}} </a></li>
-						<li class="breadcrumb-item"><a href="#"> {{__('words.SEND')}} </a></li>
-						<li class="breadcrumb-item"><a href="#"> {{__('words.REPORT')}} </a></li>
+				<div class="col-md-6 align-self-end">
+					<ol class="header-panel">
+						<li class="active"><a href="#"> {{__('words.CREATE')}} </a></li>
+						<li><a href="#"> {{__('words.DESIGN')}} </a></li>
+						<li><a href="#"> {{__('words.DESIGN')}} </a></li>
+						<li><a href="#"> {{__('words.SETTINGS')}} </a></li>
+						<li><a href="#"> {{__('words.SEND')}} </a></li>
+						<li><a href="#"> {{__('words.REPORT')}} </a></li>
 					</ol>
 				</div>
 				<div class="col-md-3">
-					<a class="btn btn-outline-light" href="{{url("forms/$form->id")}}"> {{__('words.PREVIEW')}} </a>
+					<a class="btn btn-outline-primary" href="{{url("forms/$form->id")}}"> {{__('words.PREVIEW')}} </a>
 				</div>
 			</div>
 		</div>
 	</header>
 
-	<section class="container-fluid p-0">
-		<div class="row no-gutters">
-			<div class="w-30">
-				<form class="d-inline" action="{{url("forms/$form->id")}}" enctype="multipart/form-data" method="post">
+	<section>
+		<div class="form-panel">
+			<form id="form-maker" action="{{url("forms/$form->id")}}" enctype="multipart/form-data" method="post">
 
-					@csrf
-					@method('PUT')
-					<input type="hidden" name="type" value="{{$fragment}}">
+				@csrf
+				@method('PUT')
+				<input type="hidden" id="fragment-type" name="type" value="{{$fragment}}">
 
-					<div class="form-panel">
-						@yield('form-panel')
-					</div>
-					@unless ($fragment == 'main')
-						<div class="bg-dark text-left px-3 py-2">
-							<a class="btn btn-link text-light" href="{{url("forms/$form->id/edit")}}"> {{__('words.CANCEL')}} </a>
-							<button class="btn btn-primary" href="{{url("forms/$form->id/edit")}}"> {{__('words.SAVE')}} </button>
-						</div>
-					@endunless
+				@yield('form-panel')
 
-				</form>
-			</div>
-			<div class="w-70">
-				<div class="form-body">
-					@yield('form-body')
-				</div>
-			</div>
+			</form>
 		</div>
-	</secttion>
+		@if ($fragment == 'main')
+			<div class="form-panel-footer">
+				<span> {{__('messages.REGISTER_HIDDEN_INFO')}} </span>
+				<i class="fa fa-question-circle mirror-rotate mr-1" data-toggle="popover" data-content="{{__('messages.REGISTER_HIDDEN_INFO_POPOVER')}}" data-placement="top" data-trigger="hover" data-original-title="" title=""></i>
+				<span class="float-left">
+					<label class="switch">
+						<input type="checkbox" name="hidden_info" value="1"
+							@if(false) checked @endif
+						>
+						<span class="slider round"></span>
+					</label>
+				</span>
+			</div>
+		@else
+			<div class="form-panel-actions">
+				<a class="btn btn-link text-light" href="{{url("forms/$form->id/edit")}}"> {{__('words.CANCEL')}} </a>
+				<button form="form-maker" class="btn btn-primary" href="{{url("forms/$form->id/edit")}}"> {{__('words.SAVE')}} </button>
+			</div>
+		@endif
+		<div class="form-body" @if($fragment == 'main') style="background-color: #F0F0F0;" @endif>
+			@yield('form-body')
+		</div>
+	</section>
 
 @endsection
