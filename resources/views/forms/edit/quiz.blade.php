@@ -97,7 +97,7 @@
 @endsection
 
 @section('form-body')
-	<div id="preview" class="">
+	<div id="preview" class="hidden">
 		<h4> <i class="fa fa-arrow-left"></i> <span data-yield="question"></span> </h4>
 		<p data-yield="description" class="m-0"></p>
 		<img src="" alt="" data-yield="image" class="preview-img">
