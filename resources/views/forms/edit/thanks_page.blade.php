@@ -12,7 +12,7 @@
 			</div>
 			<div class="form-group hidden mt-3" id="file-upload">
 				<div class="custom-file">
-					<input type="file" class="custom-file-input" id="customFile">
+					<input type="file" class="custom-file-input" id="file">
 					<label class="custom-file-label" for="customFile" data-content="{{__('words.SELECT')}}"> {{__('words.CHOOSE_FILE')}} </label>
 				</div>
 			</div>

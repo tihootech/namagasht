@@ -47,14 +47,10 @@
 @endsection
 
 @section('form-body')
-	<div id="preview" class="hidden">
-		<div class="centerize">
-			<div class="px-4 py-3">
-				<img src="" alt="" data-yield="image" class="preview-img">
-				<h2 data-yield="title" class="mt-2"></h2>
-				<p data-yield="description" class="text-muted font-weight-bold"></p>
-				<button type="button" class="btn btn-primary" data-yield="btn"></button>
-			</div>
-		</div>
+	<div id="preview" class="hidden text-center">
+		<img src="" alt="" data-yield="image" class="preview-img">
+		<h2 data-yield="title" class="mt-2"></h2>
+		<p data-yield="description" class="text-muted font-weight-bold"></p>
+		<button type="button" class="btn btn-primary" data-yield="btn"></button>
 	</div>
 @endsection

@@ -10,16 +10,16 @@
 				{{__('words.GROUP_QUESTION_TITLE')}}
 			</div>
 			<div class="form-group mt-3">
-				<textarea name="question" rows="3" class="form-control" placeholder="{{__('words.GROUP_QUESTION_TITLE')}}...">{{null}}</textarea>
+				<textarea name="question" id="question" rows="3" class="form-control" placeholder="{{__('words.GROUP_QUESTION_TITLE')}}...">{{null}}</textarea>
 			</div>
 		</li>
 		<li class="list-group-item">
 			<div class="pos-relative">
 				{{__('words.DESCRIPTION')}}
-				@include('forms.partials.toggle', ['target' => 'description', 'name'=>'description', 'checked'=>false])
+				@include('forms.partials.toggle', ['target' => 'description-div', 'name'=>'description', 'checked'=>false])
 			</div>
-			<div class="form-group mt-3 hidden" id="description">
-				<textarea name="description" rows="4" class="form-control" placeholder="{{__('words.DESCRIPTION')}}...">{{null}}</textarea>
+			<div class="form-group mt-3 hidden" id="description-div">
+				<textarea name="description" id="description" rows="4" class="form-control" placeholder="{{__('words.DESCRIPTION')}}...">{{null}}</textarea>
 			</div>
 		</li>
 		<li class="list-group-item">
@@ -29,7 +29,7 @@
 			</div>
 			<div class="form-group hidden mt-3" id="file-upload">
 				<div class="custom-file">
-					<input type="file" class="custom-file-input" id="customFile">
+					<input type="file" class="custom-file-input" id="file">
 					<label class="custom-file-label" for="customFile" data-content="{{__('words.SELECT')}}"> {{__('words.CHOOSE_FILE')}} </label>
 				</div>
 			</div>
@@ -48,7 +48,10 @@
 @endsection
 
 @section('form-body')
-	<div id="preview">
-
+	<div id="preview" class="">
+		<h4 data-yield="question"></h4>
+		<p data-yield="description" class="m-0"></p>
+		<img src="" alt="" data-yield="image" class="preview-img">
+		<button type="button" class="btn btn-primary mt-4 hidden" id="display-btn" data-yield="btn"> {{__('words.CONTINUE')}} </button>
 	</div>
 @endsection

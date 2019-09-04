@@ -14,7 +14,6 @@
 					<ol class="header-panel">
 						<li class="active"><a href="#"> {{__('words.CREATE')}} </a></li>
 						<li><a href="#"> {{__('words.DESIGN')}} </a></li>
-						<li><a href="#"> {{__('words.DESIGN')}} </a></li>
 						<li><a href="#"> {{__('words.SETTINGS')}} </a></li>
 						<li><a href="#"> {{__('words.SEND')}} </a></li>
 						<li><a href="#"> {{__('words.REPORT')}} </a></li>
@@ -58,7 +57,7 @@
 				<button form="form-maker" class="btn btn-primary" href="{{url("forms/$form->id/edit")}}"> {{__('words.SAVE')}} </button>
 			</div>
 		@endif
-		<div class="form-body" @if($fragment == 'main') style="background-color: #F0F0F0;" @endif>
+		<div class="form-body @if($fragment == 'main') form-main @else form-preview @endif">
 			@yield('form-body')
 		</div>
 	</section>
