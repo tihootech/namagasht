@@ -10,7 +10,7 @@
 				{{__('words.STRING')}}
 			</div>
 			<div class="form-group mt-3">
-				<textarea name="question" id="question" rows="5" class="form-control" placeholder="{{__('words.STRING')}}...">{{null}}</textarea>
+				<textarea name="title" id="question" rows="5" class="form-control" placeholder="{{__('words.STRING')}}...">{{null}}</textarea>
 			</div>
 		</li>
 		<li class="list-group-item">

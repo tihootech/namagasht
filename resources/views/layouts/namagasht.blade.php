@@ -13,6 +13,13 @@
 
 	@yield('main')
 
+	@if (session('message'))
+		<div class="flash-message">
+			{{session('message')}}
+			<i class="fa fa-times"></i>
+		</div>
+	@endif
+
 	<script src="{{asset('/js/app.js')}}" charset="utf-8"></script>
 	<script src="{{asset('/js/namagasht.js')}}" charset="utf-8"></script>
 </body>

@@ -1,5 +1,7 @@
 <?php
 return [
+    'CHANGES_MADE_SUCCESSFULLY' => 'تغییرات با موفقیت ذخیره شد',
+    'FORM_CREATED_SUCCESSFULLY' => 'فرم مورد نظر ایجاد شد.',
     'DRAG_WELCOME_PAGE' => 'صفحه خوش‌آمد‌گویی را از ستون سمت راست به اینجا بکشید ',
     'DRAG_QUESTION_TYPE' => 'نوع سوال مورد نظر را از ستون سمت راست به اینجا بکشید',
     'DRAG_THANKS_PAGE' => 'صفحه تشکر را از ستون سمت راست به اینجا بکشید',

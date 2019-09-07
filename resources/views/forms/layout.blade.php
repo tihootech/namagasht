@@ -28,11 +28,12 @@
 
 	<section>
 		<div class="form-panel">
-			<form id="form-maker" action="{{url("forms/$form->id")}}" enctype="multipart/form-data" method="post">
+			<form id="form-maker" action="{{url("questions")}}" enctype="multipart/form-data" method="post">
 
 				@csrf
-				@method('PUT')
 				<input type="hidden" id="fragment-type" name="type" value="{{$fragment}}">
+				<input type="hidden" name="form_id" value="{{$form->id}}">
+				<input type="hidden" name="question_id" value="{{$question->id}}">
 
 				@yield('form-panel')
 

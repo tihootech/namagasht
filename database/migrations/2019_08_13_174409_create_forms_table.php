@@ -16,7 +16,16 @@ class CreateFormsTable extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('created_by');
+            $table->string('uid')->unique();
+            $table->boolean('hidden_inputs')->default(0);
+            $table->unsignedSmallInteger('theme')->default(0);
+            $table->string('bg_image')->nullable();
+            $table->boolean('finish_answering')->default(0);
+            $table->date('auto_finish_date')->nullable();
+            $table->boolean('no_back')->default(0);
+            $table->boolean('no_next')->default(0);
+            $table->boolean('no_progress_bar')->default(0);
+            $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);
             $table->timestamps();
         });

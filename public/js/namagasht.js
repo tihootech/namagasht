@@ -4,6 +4,12 @@ $(document).ready(function () {
 	$('[title]').tooltip();
 	$('[data-toggle=popover]').popover();
 
+	// flash message
+	$('.flash-message').fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).delay(3000).fadeOut(500);
+	$('.flash-message > i').click(function () {
+		$(this).parents('.flash-message').remove();
+	});
+
 	// file display
 	$("#file").change(function () {
 		displayImage(this);
@@ -67,7 +73,7 @@ $(document).on('input','#enter-choices',function () {
 
 $(document).on('click','.display-range > span',function () {
 	$('.display-range > span').removeClass('selected');
-	$(this).addClass('selected').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);;
+	$(this).addClass('selected').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 });
 
 $(document).on('mouseenter','.porsline-degree > p',function () {
@@ -128,7 +134,7 @@ $(document).on('input','#form-maker',function () {
 	$('.porsline-degree').attr('data-icon', $('#shape').val() );
 
 	$('#toggle-btn').is(':checked') ? $('#display-btn').show() : $('#display-btn').hide();
-	$('#toggle-description').is(':checked') ? $('[data-yield=description]').show() : $('[data-yield=description]').hide();
+	$('#toggle-has_description').is(':checked') ? $('[data-yield=description]').show() : $('[data-yield=description]').hide();
 	$('#toggle-image').is(':checked') ? $('[data-yield=image]').show() : $('[data-yield=image]').hide();
 	$('#toggle-alphabet').is(':checked') ? displaySelectList('alphabetic') : displaySelectList('regular');
 	$('#toggle-required').is(':checked') ? $('[data-yield=question]').append('<i class="fa fa-asterisk text-danger"></i>') : $('[data-yield=question] > i').remove();
