@@ -221,13 +221,17 @@ input[disabled] {
 }
 
 .form-map .white-card {
+	display: block;
 	text-align: right;
 	background-color: #fff;
 	padding: 20px 30px 20px 60px;
-	border-top: 1px solid #bebebe;
 	border-bottom: 1px solid #bebebe;
 	cursor: pointer;
-	font-size: 18px;
+	font-size: 16px;
+}
+
+.form-map .white-card:first-child {
+	border-top: 1px solid #bebebe;
 }
 
 .form-map .white-card:hover {
@@ -276,7 +280,7 @@ input[disabled] {
 }
 
 .preview-img {
-	max-height: 350px;
+	max-height: 300px;
 	max-width: 100%;
     width: auto;
     height: auto;
@@ -285,6 +289,10 @@ input[disabled] {
 #preview {
 	width:100%;
 	padding: 20px 70px;
+}
+
+#preview > h4 {
+	margin-top: 30px;
 }
 
 .porsline {

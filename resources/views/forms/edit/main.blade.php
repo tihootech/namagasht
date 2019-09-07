@@ -27,9 +27,9 @@
 @section('form-body')
 	<div class="form-map">
 
-		<div class="mb-5">
+		<div id="welcome-page" class="mb-5">
 			@if ($form->has_welcome_page())
-				<div class="white-card">
+				<div class="white-card" onclick="redirect('{{url("forms/$form->id/edit?f=welcome_page&qid={$form->welcome_page->id}")}}')">
 					<i class="fa fa-sign-in text-primary mirror-rotate ml-2"></i>
 					<span>{{$form->welcome_page->title}}</span>
 					<a href="{{url("questions/{$form->welcome_page->id}/delete")}}"> <i class="fa fa-trash text-dark float-left"></i> </a>
@@ -41,13 +41,19 @@
 			@endif
 		</div>
 
-		<div class="mb-5">
-			@foreach ($form->questions as $n => $question)
-				<div class="white-card">
-					<span>{{$n+1}}. {{$question->title}}</span>
-					<a href="#"> <i title="{{__('words.MOVE')}}" class="fa fa-exchange text-dark float-left mx-2 rotate"></i> </a>
-					<a href="{{url("questions/{$question->id}/delete")}}"> <i title="{{__('words.DELETE')}}" class="fa fa-trash text-dark float-left mx-2"></i> </a>
-					<a href="#"> <i title="{{__('words.DUPLICATE')}}" class="fa fa-clone text-dark float-left mx-2"></i> </a>
+		<div id="questions" class="mb-5">
+			@foreach ($form->questions as $question)
+				<div class="white-card" onclick="redirect('{{url("forms/$form->id/edit?f=$question->type&qid={$question->id}")}}')">
+					<span>{{$question->position}}. {{$question->title}}</span>
+					<a href="#">
+						<i title="{{__('words.MOVE')}}" class="fa fa-exchange text-dark float-left mx-2 rotate"></i>
+					</a>
+					<a href="{{url("questions/{$question->id}/delete")}}">
+						<i title="{{__('words.DELETE')}}" class="fa fa-trash text-danger float-left mx-2"></i>
+					</a>
+					<a href="#">
+						<i title="{{__('words.DUPLICATE')}}" class="fa fa-clone text-primary float-left mx-2"></i>
+					</a>
 				</div>
 			@endforeach
 			<div class="question-type mt-3">
@@ -55,7 +61,7 @@
 			</div>
 		</div>
 
-		<div class="mb-5">
+		<div id="thanks-page" class="mb-5">
 			@if ($form->has_thanks_page())
 				<div class="white-card">
 					<i class="fa fa-sign-in text-primary mirror-rotate ml-2"></i>

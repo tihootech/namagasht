@@ -16,6 +16,7 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('form_id');
+            $table->unsignedInteger('position')->default(0);
             $table->string('type');
             $table->text('title');
             $table->string('file_path')->nullable();

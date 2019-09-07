@@ -39,12 +39,9 @@ class FormController extends Controller
 
     public function edit(Form $form)
     {
-        if ($question_id = request('qid')) {
-            $question = Question::find($question_id);
-        }else {
-            $fragment = request('f') ?? 'main';
-            $question = new Question;
-        }
+        $question_id = request('qid');
+        $question = $question_id ? Question::find($question_id) : new Question;
+        $fragment = request('f') ?? 'main';
         return view("forms.edit.$fragment", compact('form', 'fragment', 'question'));
     }
 
@@ -79,19 +76,32 @@ class FormController extends Controller
             'zero_based' => 'nullable|boolean',
         ]);
 
+        // define question variable
+        $question = Question::find($request->question_id) ?? new Question;
+
         // handle file upload
-        $old_file = null;
+        $old_file = $question->id ? $question->file_path : null;
         if ($request->has_file) {
             if ($new_file = $request->file) {
                 $data['file_path'] = upload($new_file, $old_file);
             }
-        }elseif($request->question_id) {
+        }elseif($old_file) {
+            $data['file_path'] = null;
             delete_file($old_file);
         }
 
+        // set position if it's a new question
+        if ($request->type != 'welcome_page' && $request->type != 'thanks_page' && !$request->question_id) {
+            $position = Question::where('form_id', $request->form_id)->max('position');
+            $data['position'] = $position + 1;
+        }
+
+        // unset variables
+        if (!$request->has_description) $data['description'] = null;
+        if (!$request->has_button) $data['button'] = null;
+
         // store or update record in database
-        if ($question_id = $request->question_id) {
-            $question = Question::find($question_id);
+        if ($question->id) {
             $question->update($data);
         }else {
             Question::create($data);
@@ -104,7 +114,13 @@ class FormController extends Controller
 
     public function delete_question($qid)
     {
-        dd($qid);
+        $question = Question::find($qid);
+        if ($question->file_path) {
+            delete_file($question->file_path);
+        }
+        $question->delete();
+        $message = __('messages.ITEM_REMOVED_SUCCESSFULLY');
+        return back()->withMessage($message);
     }
 
     public function destroy(Form $form)

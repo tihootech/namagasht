@@ -133,11 +133,11 @@ $(document).on('input','#form-maker',function () {
 	$('#display-choices').attr('data-multiple', $('#toggle-multiple_choice').is(':checked') );
 	$('.porsline-degree').attr('data-icon', $('#shape').val() );
 
-	$('#toggle-btn').is(':checked') ? $('#display-btn').show() : $('#display-btn').hide();
+	$('#toggle-has_button').is(':checked') ? $('#display-btn').show() : $('#display-btn').hide();
 	$('#toggle-has_description').is(':checked') ? $('[data-yield=description]').show() : $('[data-yield=description]').hide();
-	$('#toggle-image').is(':checked') ? $('[data-yield=image]').show() : $('[data-yield=image]').hide();
+	$('#toggle-has_file').is(':checked') ? $('[data-yield=image]').show() : $('[data-yield=image]').hide();
 	$('#toggle-alphabet').is(':checked') ? displaySelectList('alphabetic') : displaySelectList('regular');
-	$('#toggle-required').is(':checked') ? $('[data-yield=question]').append('<i class="fa fa-asterisk text-danger"></i>') : $('[data-yield=question] > i').remove();
+	$('#toggle-required').is(':checked') ? $('[data-yield=title]').append('<i class="fa fa-asterisk text-danger"></i>') : $('[data-yield=title] > i').remove();
 
 	$('.range-label-left').html($('#left').val() ? $('#left').val() : $('.display-range > span').last().text());
 	$('.range-label-center').html($('#center').val());
@@ -259,4 +259,8 @@ function displaySelectList(type) {
 	}else {
 		$('.porsline-select-dropdown').append('نتیجه‌ای یافت نشد');
 	}
+}
+
+function redirect(url) {
+	location.href = url;
 }
