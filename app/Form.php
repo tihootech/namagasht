@@ -31,4 +31,18 @@ class Form extends Model
     {
         return $this->hasMany(Question::class)->where('type','!=','welcome_page')->where('type','!=','thanks_page')->orderBy('position');
     }
+
+    public function questions_count()
+    {
+        return self::where('form_id', $this->id)->where('type','!=','welcome_page')->where('type','!=','thanks_page')->count();
+    }
+
+    public function add_filler()
+    {
+        $filler = new Filler;
+        $filler->uid = random_sha();
+        $filler->form_id = $this->id;
+        $filler->save();
+        return $filler;
+    }
 }

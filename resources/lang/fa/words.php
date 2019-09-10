@@ -74,4 +74,5 @@ return [
     'THANKS_TEXT' => 'متن تشکر',
     'ANSWER_LOCATION' => 'محل درج پاسخ',
     'CHOOSE_OR_TYPE_ANSWER' => 'گزینه موردنظر را تایپ یا انتخاب کنید',
+    'FILL_FORM' => 'پرکردن فرم',
 ];

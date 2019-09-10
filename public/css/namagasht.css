@@ -390,7 +390,7 @@ input[disabled] {
 	color: #fff;
 }
 
-[data-yield=question] > i {
+[data-yield=title] > i {
 	margin-right: 5px;
 	font-size: 0.5em;
 }
@@ -545,4 +545,16 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+
+/* Show Form Fill */
+.fill-form-footer {
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	padding: 10px;
+	background-color: #35404B;
 }

@@ -34,7 +34,8 @@ class FormController extends Controller
 
     public function show(Form $form)
     {
-        //
+        dd('show');
+        return view('forms.show', compact('form'));
     }
 
     public function edit(Form $form)
@@ -126,5 +127,30 @@ class FormController extends Controller
     public function destroy(Form $form)
     {
         //
+    }
+
+    public function show_to_fill(Form $form, Question $question)
+    {
+        if (!$question->id) {
+            $question = $form->welcome_page;
+        }
+        return view('forms.fill', compact('form', 'question'));
+    }
+
+    public function fill(Form $form, Question $question, Request $request)
+    {
+        if ($request->position == 'welcome_page') {
+            $filler = $form->add_filler();
+            $filler_uid = $filler->uid;
+            session(compact('filler_uid'));
+            $position = 0;
+        }else {
+            $position = $request->position;
+        }
+        $next_question = Question::where('form_id', $form->id)->where('position', '>', $position)->first();
+        if (!$next_question->id) {
+            Question::where('form_id', $form->id)->where('type', 'thanks_page')->first();
+        }
+        return redirect("form/$form->id/$next_question->id");
     }
 }
