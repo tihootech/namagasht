@@ -75,4 +75,8 @@ return [
     'ANSWER_LOCATION' => 'محل درج پاسخ',
     'CHOOSE_OR_TYPE_ANSWER' => 'گزینه موردنظر را تایپ یا انتخاب کنید',
     'FILL_FORM' => 'پرکردن فرم',
+    'NEXT' => 'بعدی',
+    'PREV' => 'قبلی',
+    'ANSWERED' => 'پاسخ داده شده',
+    'FROM' => 'از',
 ];

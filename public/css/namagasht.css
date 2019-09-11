@@ -484,6 +484,15 @@ input[disabled] {
 	padding: 0 5px;
 }
 
+.fill-form-body {
+	position: absolute;
+	width: 100%;
+	padding: 50px 80px;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
 /* ===========================================
 	mobile switch
 =========================================== */
@@ -557,4 +566,5 @@ input:checked + .slider:before {
 	left: 0;
 	padding: 10px;
 	background-color: #35404B;
+	color: #fff;
 }

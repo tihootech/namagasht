@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Form;
 use App\Question;
+use App\Filler;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
@@ -120,6 +121,8 @@ class FormController extends Controller
             delete_file($question->file_path);
         }
         $question->delete();
+        $form = $question->form;
+        $form->sort_questions_position();
         $message = __('messages.ITEM_REMOVED_SUCCESSFULLY');
         return back()->withMessage($message);
     }
@@ -129,28 +132,61 @@ class FormController extends Controller
         //
     }
 
-    public function show_to_fill(Form $form, Question $question)
+    public function show_to_fill($form_uid, Question $question)
     {
-        if (!$question->id) {
-            $question = $form->welcome_page;
+        $form = Form::where('uid', $form_uid)->first();
+        if ($form) {
+            $filler = Filler::where('uid', session('filler_uid'))->first();
+            if (!$question->id || !$filler) {
+                $question = $form->welcome_page;
+            }
+            return view('forms.fill', compact('form', 'question'));
+        }else {
+            abort(404);
         }
-        return view('forms.fill', compact('form', 'question'));
     }
 
     public function fill(Form $form, Question $question, Request $request)
     {
-        if ($request->position == 'welcome_page') {
+
+        // create filler in database an store his unique id in session if not already happened
+        $filler = Filler::where('uid', session('filler_uid'))->first();
+        if (!$filler) {
             $filler = $form->add_filler();
             $filler_uid = $filler->uid;
             session(compact('filler_uid'));
-            $position = 0;
+            $first_question = $form->first_question;
+            return redirect("form/$form->id/$first_question->id");
+        }
+
+        if ($request->dir == 'next') {
+
+            if( !in_array($question->type, Form::$filters) ) {
+                // register filler answer
+                $answer = is_array($request->answer) ? implode('&', $request->answer) : $request->answer;
+                $question->register_answer($filler->id, $answer);
+            }
+
+            $target_question = $question->next();
+
         }else {
-            $position = $request->position;
+
+            $target_question = $question->prev();
+
         }
-        $next_question = Question::where('form_id', $form->id)->where('position', '>', $position)->first();
-        if (!$next_question->id) {
-            Question::where('form_id', $form->id)->where('type', 'thanks_page')->first();
+
+
+        // redirection
+        if ($target_question) {
+            // go to next or prev question
+            return redirect("form/$form->uid/$target_question->id");
+        }else {
+            // finish form filling process
+            $filler_uid = session('filler_uid');
+            $filler = Filler::where('uid', $filler_uid)->first();
+            $filler->finish();
+            session()->forget('filler_uid');
+            return redirect("form/$form->uid")->withFinished(1);
         }
-        return redirect("form/$form->id/$next_question->id");
     }
 }

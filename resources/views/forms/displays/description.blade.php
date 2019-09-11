@@ -1,1 +1,1 @@
-<p data-yield="description">{{$question->title}}</p>
+<p data-yield="description">{{$question->description}}</p>

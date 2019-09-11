@@ -20,7 +20,7 @@
 					</ol>
 				</div>
 				<div class="col-md-3">
-					<a class="btn btn-outline-primary" href="{{url("form/$form->id")}}" target="_blank"> {{__('words.PREVIEW')}} </a>
+					<a class="btn btn-outline-primary" href="{{url("form/$form->uid")}}" target="_blank"> {{__('words.PREVIEW')}} </a>
 				</div>
 			</div>
 		</div>

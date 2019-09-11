@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Form extends Model
 {
     protected $guarded = ['id'];
+    public static $filters = ['welcome_page', 'thanks_page', 'string_with_no_answer', 'group_question'];
 
     public function welcome_page()
     {
@@ -27,6 +28,11 @@ class Form extends Model
         return $this->thanks_page ? true : false;
     }
 
+    public function first_question()
+    {
+        return $this->hasOne(Question::class)->where('position', 1);
+    }
+
     public function questions()
     {
         return $this->hasMany(Question::class)->where('type','!=','welcome_page')->where('type','!=','thanks_page')->orderBy('position');
@@ -34,7 +40,7 @@ class Form extends Model
 
     public function questions_count()
     {
-        return self::where('form_id', $this->id)->where('type','!=','welcome_page')->where('type','!=','thanks_page')->count();
+        return Question::where('form_id', $this->id)->whereNotIn('type', self::$filters)->count();
     }
 
     public function add_filler()
@@ -44,5 +50,13 @@ class Form extends Model
         $filler->form_id = $this->id;
         $filler->save();
         return $filler;
+    }
+
+    public function sort_questions_position()
+    {
+        foreach ($this->questions as $i => $question) {
+            $question->position = $i+1;
+            $question->save();
+        }
     }
 }

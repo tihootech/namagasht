@@ -1,1 +1,1 @@
-<textarea class="porsline porsline-textarea" id="preview-input" placeholder="{{$placeholder}}..."></textarea>
+<textarea class="porsline porsline-textarea" name="answer" id="preview-input" placeholder="{{$placeholder}}...">@isset($value){{$value}}@endisset</textarea>

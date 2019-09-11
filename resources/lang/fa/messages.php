@@ -17,4 +17,5 @@ return [
     'ITEM_REMOVED_SUCCESSFULLY'=>'آیتم مورد نظر حذف شد',
     'REPLACE_FILE'=>'برای تغییر تصویر میتوانید فایل جدید آپلود کنید',
     'NO_WELCOME_PAGE_ERROR'=>'لطفا ابتدا صفحه خوش آمد گویی را ایجاد کنید',
+    'FORM_FILLING_PROCESS_FINISHED'=>'فرم مورد نظر تکمیل شد و نتایج شما در سیستم ذخیره شد.',
 ];
