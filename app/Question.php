@@ -110,8 +110,12 @@ class Question extends Model
 
     public function next()
     {
-        $found = self::where('form_id', $this->form_id)->where('position', $this->position+1)->first();
-        return $found ?? $this->form->thanks_page;
+        if ($this->type == 'thanks_page') {
+            return null;
+        }else {
+            $found = self::where('form_id', $this->form_id)->where('position', $this->position+1)->first();
+            return $found ?? $this->form->thanks_page;
+        }
     }
 
     public function prev()
@@ -121,6 +125,10 @@ class Question extends Model
 
     public function step()
     {
-        return self::where('form_id', $this->form_id)->whereNotIn('type', Form::$filters)->where('position', '<', $this->position)->count();
+        if ($this->type == 'thanks_page') {
+            return $this->form->questions_count();
+        }else {
+            return self::where('form_id', $this->form_id)->whereNotIn('type', Form::$filters)->where('position', '<', $this->position)->count();
+        }
     }
 }

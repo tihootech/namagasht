@@ -169,7 +169,6 @@ class FormController extends Controller
             $first_question = $form->first_question;
             return redirect("form/$form->uid/$first_question->id");
         }
-
         if ($request->dir == 'next') {
 
             if( !in_array($question->type, Form::$filters) ) {

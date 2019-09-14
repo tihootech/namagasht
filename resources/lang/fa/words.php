@@ -81,4 +81,6 @@ return [
     'FROM' => 'از',
     'QUESTION_TYPE' => 'نوع سوال',
     'FINAL_REGISTER' => 'ثبت نهایی',
+    'REVIEW' => 'بازبینی',
+    'RELOAD_FORM' => 'بارگذاری مجدد فرم',
 ];

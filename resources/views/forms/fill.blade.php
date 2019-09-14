@@ -5,6 +5,8 @@
 
 		<div class="alert alert-success m-2 m-md-5">
 			{{__('messages.FORM_FILLING_PROCESS_FINISHED')}}
+			<hr>
+			<a href="javascript:location.reload(true)" class="btn btn-success">{{__('words.RELOAD_FORM')}}</a>
 		</div>
 
 	@elseif ($question)
@@ -24,6 +26,12 @@
 						</div>
 
 					@elseif ($question->type == 'thanks_page')
+
+						<div class="text-center">
+							@include('forms.displays.file')
+							<h2 data-yield="title" class="mt-2">{{$question->title}}</h2>
+							@include('forms.displays.description')
+						</div>
 
 					@else
 
@@ -174,6 +182,9 @@
 				<div class="fill-form-footer">
 					@if ($question->type == 'welcome_page')
 						<button type="submit" name="dir" value="next" class="btn btn-primary">{{$question->button ?? __('words.CONFIRM')}}</button>
+					@elseif ($question->type == 'thanks_page')
+						<a href="{{url("form/$form->uid")}}" class="btn btn-primary py-2">{{__('words.REVIEW')}}</a>
+						<button type="submit" name="dir" value="next" class="btn btn-primary py-2"> {{__('words.FINAL_REGISTER')}} </button>
 					@else
 						<div class="container">
 							<div class="row">
@@ -184,7 +195,7 @@
 									@if ($question->next())
 										<button type="submit" name="dir" value="next" class="btn btn-primary py-2"> {{__('words.NEXT')}} </button>
 									@endif
-									@if ($question->last())
+									@if (!$form->has_thanks_page() && $question->last())
 										<button type="submit" name="dir" value="next" class="btn btn-primary py-2"> {{__('words.FINAL_REGISTER')}} </button>
 									@endif
 								</div>
