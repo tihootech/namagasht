@@ -4,7 +4,7 @@
 	<ul class="list-group p-0">
 
 		<li class="list-group-item text-center">
-			نوع سوال : {{__('words.TEXT')}}
+			{{__('words.QUESTION_TYPE')}} : {{__('words.TEXT')}}
 		</li>
 		@include('forms.li.title')
 		@include('forms.li.description')

@@ -79,4 +79,6 @@ return [
     'PREV' => 'قبلی',
     'ANSWERED' => 'پاسخ داده شده',
     'FROM' => 'از',
+    'QUESTION_TYPE' => 'نوع سوال',
+    'FINAL_REGISTER' => 'ثبت نهایی',
 ];

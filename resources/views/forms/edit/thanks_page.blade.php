@@ -42,18 +42,18 @@
 				@include('forms.partials.toggle', ['name'=>'required', 'checked'=>false])
 			</div>
 		</li>
-		<li class="list-group-item">
+		{{-- <li class="list-group-item">
 			<div class="pos-relative">
 				{{__('words.DEFAULT_THANKS_PAGE')}}
 				@include('forms.partials.toggle', ['name'=>'required', 'checked'=>false])
 			</div>
-		</li>
-		<li class="list-group-item">
+		</li> --}}
+		{{-- <li class="list-group-item">
 			<div class="pos-relative">
 				{{__('words.REDIRECT/RELOAD_BTN')}}
 				@include('forms.partials.toggle', ['name'=>'required', 'checked'=>false])
 			</div>
-		</li>
+		</li> --}}
 		<li class="list-group-item">
 			<div class="pos-relative">
 				{{__('words.AUTO_RELOAD')}}

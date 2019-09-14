@@ -33,10 +33,13 @@ class CreateQuestionsTable extends Migration
             $table->boolean('randomize')->default(0);
             $table->boolean('vertical')->default(0);
             $table->boolean('multiple')->default(0);
+            $table->boolean('alphabet')->default(0);
             $table->boolean('no_label')->default(0);
             $table->boolean('double_size')->default(0);
             $table->boolean('decimal')->default(0);
             $table->boolean('zero_based')->default(0);
+            $table->boolean('share')->default(0);
+            $table->unsignedInteger('auto_reload')->default(0);
             $table->timestamps();
         });
     }

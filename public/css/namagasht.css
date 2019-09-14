@@ -79,6 +79,10 @@ input[disabled] {
 	cursor: pointer;
 }
 
+.pointer {
+	cursor: pointer;
+}
+
 /* ===========================================
 	widths
 =========================================== */
@@ -327,6 +331,7 @@ input[disabled] {
 	border-radius: 5px;
 	padding: 0 12px 0px 30px;
 	cursor: pointer;
+	min-width: 120px;
 }
 
 #display-choices > p:hover {
@@ -348,6 +353,11 @@ input[disabled] {
 	position: absolute;
 	left: 10px;
 	top: 10px;
+}
+
+#display-choices > p > img {
+	max-width: 100px;
+	margin: 10px;
 }
 
 .porsline-select {
@@ -475,6 +485,7 @@ input[disabled] {
 
 .periority-display > p > i {
 	transform: rotate(90deg);
+	cursor: all-scroll;
 }
 
 .periority-display > p > span {

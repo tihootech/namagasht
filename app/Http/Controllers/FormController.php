@@ -72,10 +72,13 @@ class FormController extends Controller
             'randomize' => 'nullable|boolean',
             'vertical' => 'nullable|boolean',
             'multiple' => 'nullable|boolean',
+            'alphabet' => 'nullable|boolean',
             'no_label' => 'nullable|boolean',
             'double_size' => 'nullable|boolean',
             'decimal' => 'nullable|boolean',
             'zero_based' => 'nullable|boolean',
+            'share' => 'nullable|boolean',
+            'auto_reload' => 'nullable|integer',
         ]);
 
         // define question variable
@@ -106,7 +109,15 @@ class FormController extends Controller
         if ($question->id) {
             $question->update($data);
         }else {
-            Question::create($data);
+            $question = Question::create($data);
+        }
+
+        // store choices if any
+        if ($choices = $request->choices) {
+            if (!is_array($choices)) {
+                $choices = explode("\r\n", $choices);
+            }
+            $question->update_choices($choices, $request->choices_file);
         }
 
         // redirection
@@ -156,7 +167,7 @@ class FormController extends Controller
             $filler_uid = $filler->uid;
             session(compact('filler_uid'));
             $first_question = $form->first_question;
-            return redirect("form/$form->id/$first_question->id");
+            return redirect("form/$form->uid/$first_question->id");
         }
 
         if ($request->dir == 'next') {

@@ -95,8 +95,8 @@ $(document).on('click','.porsline-degree > p',function () {
 	$('.porsline-degree > p').slice(0,index).children('i').addClass('selected fa-'+icon).removeClass('fa-'+icon+'-o').css('color','#118EB7');
 });
 
-$(document).on('input','#range,#toggle-zero',function () {
-	var zeroBased = $('#toggle-zero').is(':checked');
+$(document).on('input','#range,#toggle-zero_based',function () {
+	var zeroBased = $('#toggle-zero_based').is(':checked');
 	$('.display-range').html(null);
 	var value = parseInt($('#range').val());
 	value%2==0 ? $('.range-label-center').css('visibility', 'hidden') : $('.range-label-center').css('visibility', 'visible');
@@ -130,7 +130,7 @@ $(document).on('input','#form-maker',function () {
 	$('[data-yield=btn]').html($('#btn').val());
 
 	$('#display-choices').attr('data-vertical', $('#toggle-vertical').is(':checked') );
-	$('#display-choices').attr('data-multiple', $('#toggle-multiple_choice').is(':checked') );
+	$('#display-choices').attr('data-multiple', $('#toggle-multiple').is(':checked') );
 	$('.porsline-degree').attr('data-icon', $('#shape').val() );
 
 	$('#toggle-has_button').is(':checked') ? $('#display-btn').show() : $('#display-btn').hide();
