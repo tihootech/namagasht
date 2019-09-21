@@ -37,7 +37,7 @@
 		@include('forms.displays.file')
 		<div class="porsline-select">
 			<label class="fa fa-angle-down fa-2x" for="search"></label>
-			<input type="text" id="search" class="porsline porsline-input" placeholder="{{__('words.CHOOSE_OR_TYPE_ANSWER')}}...">
+			<input type="text" id="search" class="porsline porsline-input" autocomplete="off" placeholder="{{__('words.CHOOSE_OR_TYPE_ANSWER')}}...">
 			<div class="porsline-select-dropdown">
 				@foreach ($question->assets as $asset)
 					<p>{{$asset->content}}</p>

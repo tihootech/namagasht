@@ -63,10 +63,10 @@
 
 		<div id="thanks-page" class="mb-5">
 			@if ($form->has_thanks_page())
-				<div class="white-card">
+				<div class="white-card" onclick="redirect('{{url("forms/$form->id/edit?f=thanks_page&qid={$form->thanks_page->id}")}}')">
 					<i class="fa fa-sign-in text-primary mirror-rotate ml-2"></i>
 					<span>{{$form->thanks_page->title}}</span>
-					<a href="{{url("questions/{$form->welcome_page->id}/delete")}}"> <i class="fa fa-trash text-dark float-left"></i> </a>
+					<a href="{{url("questions/{$form->thanks_page->id}/delete")}}"> <i class="fa fa-trash text-dark float-left"></i> </a>
 				</div>
 			@else
 				<div class="header-footer">

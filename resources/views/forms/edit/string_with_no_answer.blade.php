@@ -5,7 +5,7 @@
 		<li class="list-group-item text-center">
 			{{__('words.ADD_TEXT')}}
 		</li>
-		@include('forms.li.title', ['label'=>__('words.CONTINUE'), 'placeholder'=>__('words.STRING'), 'rows'=>6])
+		@include('forms.li.title', ['label'=>__('words.STRING'), 'placeholder'=>__('words.STRING'), 'rows'=>6])
 		@include('forms.li.description')
 		@include('forms.li.file')
 		@include('forms.li.button', ['toggle'=>false])

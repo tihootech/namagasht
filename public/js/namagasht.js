@@ -17,6 +17,18 @@ $(document).ready(function () {
 
 });
 
+$(document).on('click','.preview-theme',function () {
+	var theme = $(this).data('theme');
+	$('.preview-theme').removeClass('active');
+	$(this).addClass('active');
+	$('#form-theme').val(theme);
+	$('iframe.preview-iframe').contents().find('.theme-container').removeClass().addClass('theme-container theme-'+theme);
+});
+
+$(document).on('click','.action-li',function () {
+	$(this).children('i').toggleClass('fa-chevron-up fa-chevron-down');
+});
+
 $(document).on('focus','.porsline-select > input',function () {
 	$('.porsline-select-dropdown').fadeIn('fast');
 });
@@ -79,20 +91,20 @@ $(document).on('click','.display-range > span',function () {
 $(document).on('mouseenter','.porsline-degree > p',function () {
 	var icon = $('.porsline-degree').attr('data-icon');
 	var index = $(this).attr('data-index');
-	$('.porsline-degree > p').slice(0,index).children('i:not(.selected)').addClass('fa-'+icon).removeClass('fa-'+icon+'-o').css('color','#82A4C5');
+	$('.porsline-degree > p').slice(0,index).children('i:not(.selected)').addClass('fa-'+icon).removeClass('fa-'+icon+'-o');
 });
 
 $(document).on('mouseleave','.porsline-degree > p',function () {
 	var icon = $('.porsline-degree').attr('data-icon');
 	var index = $(this).attr('data-index');
-	$('.porsline-degree > p').slice(0,index).children('i:not(.selected)').addClass('fa-'+icon+'-o').removeClass('fa-'+icon).css('color','#118EB7');
+	$('.porsline-degree > p').slice(0,index).children('i:not(.selected)').addClass('fa-'+icon+'-o').removeClass('fa-'+icon);
 });
 
 $(document).on('click','.porsline-degree > p',function () {
 	var icon = $('.porsline-degree').attr('data-icon');
 	var index = $(this).attr('data-index');
 	$('.porsline-degree i').removeClass('selected fa-'+icon).addClass('fa-'+icon+'-o');
-	$('.porsline-degree > p').slice(0,index).children('i').addClass('selected fa-'+icon).removeClass('fa-'+icon+'-o').css('color','#118EB7');
+	$('.porsline-degree > p').slice(0,index).children('i').addClass('selected fa-'+icon).removeClass('fa-'+icon+'-o');
 });
 
 $(document).on('input','#range,#toggle-zero_based',function () {

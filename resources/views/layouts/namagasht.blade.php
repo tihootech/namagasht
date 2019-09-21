@@ -8,6 +8,9 @@
 	<link rel="stylesheet" href="{{asset('/css/font-awesome.min.css')}}">
 	<link rel="stylesheet" href="{{asset('/css/namagasht.css')}}">
 	<link rel="stylesheet" href="{{asset('/css/rtl.css')}}">
+	@isset ($form)
+		<link rel="stylesheet" href="{{asset('/css/form-themes.css')}}">
+	@endisset
 </head>
 <body>
 

@@ -1,4 +1,5 @@
 @extends('layouts.namagasht')
+
 @section('main')
 
 	@if (session('finished'))
@@ -13,7 +14,7 @@
 		<form action="{{url("form/fill/$form->id/$question->id")}}" method="post">
 			@csrf
 
-			<div class="p-relative">
+			<div class="theme-container theme-{{$form->theme}}" @if($form->bg_image) style="background:url('{{asset($form->bg_image)}}')" @endif>
 
 				<div class="fill-form-body">
 
@@ -108,7 +109,7 @@
 							@include('forms.displays.file')
 							<div class="porsline-select">
 								<label class="fa fa-angle-down fa-2x" for="search"></label>
-								<input type="text" id="search" class="porsline porsline-input" placeholder="{{__('words.CHOOSE_OR_TYPE_ANSWER')}}...">
+								<input type="text" id="search" class="porsline porsline-input" autocomplete="off" placeholder="{{__('words.CHOOSE_OR_TYPE_ANSWER')}}...">
 								<div class="porsline-select-dropdown">
 									@foreach ($question->assets as $asset)
 										<p>{{$asset->content}}</p>

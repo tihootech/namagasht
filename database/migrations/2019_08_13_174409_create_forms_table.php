@@ -18,7 +18,7 @@ class CreateFormsTable extends Migration
             $table->string('name');
             $table->string('uid')->unique();
             $table->boolean('hidden_inputs')->default(0);
-            $table->unsignedSmallInteger('theme')->default(0);
+            $table->unsignedSmallInteger('theme')->default(1);
             $table->string('bg_image')->nullable();
             $table->boolean('finish_answering')->default(0);
             $table->date('auto_finish_date')->nullable();

@@ -44,12 +44,26 @@ class FormController extends Controller
         $question_id = request('qid');
         $question = $question_id ? Question::find($question_id) : new Question;
         $fragment = request('f') ?? 'main';
-        return view("forms.edit.$fragment", compact('form', 'fragment', 'question'));
+        $action = 'edit';
+        return view("forms.edit.$fragment", compact('form', 'fragment', 'question', 'action'));
     }
 
     public function update(Request $request, Form $form)
     {
-        dd($request->all());
+        if (is_array($request->update)) {
+            foreach ($request->update as $field => $value) {
+                $form->$field = $value;
+            }
+        }
+        if ($request->bg_image) {
+            $form->bg_image = upload($request->bg_image, $form->bg_image);
+        }
+        if ($request->delete_bg) {
+            $form->bg_image = delete_file($form->bg_image);
+        }
+        $form->save();
+        $message = __('messages.CHANGES_MADE_SUCCESSFULLY');
+        return back()->withMessage($message);
     }
 
     public function question(Request $request)
@@ -198,5 +212,10 @@ class FormController extends Controller
             session()->forget('filler_uid');
             return redirect("form/$form->uid")->withFinished(1);
         }
+    }
+
+    public function display_action(Form $form, $action)
+    {
+        return view("forms.actions.$action", compact('form', 'action'));
     }
 }

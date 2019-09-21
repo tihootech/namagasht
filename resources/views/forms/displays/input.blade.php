@@ -1,1 +1,1 @@
-<input type="text" @if($ltr) dir="ltr" @endif class="porsline porsline-input" name="answer" id="preview-input" @if($placeholder) placeholder="{{$placeholder}}..." @endif @isset($value) value="{{$value}}" @endisset autocomplete="off">
+<input type="text" @if($ltr) dir="ltr" @endif class="porsline porsline-input" autocomplete="off" name="answer" id="preview-input" @if($placeholder) placeholder="{{$placeholder}}..." @endif @isset($value) value="{{$value}}" @endisset autocomplete="off">
