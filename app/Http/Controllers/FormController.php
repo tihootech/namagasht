@@ -203,7 +203,7 @@ class FormController extends Controller
         // redirection
         if ($target_question) {
             // go to next or prev question
-            return redirect("form/$form->uid/$target_question->id");
+            return redirect("form/$form->uid/$target_question->id")->withTheme($request->theme);
         }else {
             // finish form filling process
             $filler_uid = session('filler_uid');

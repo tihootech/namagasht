@@ -352,7 +352,6 @@ input[disabled] {
 }
 
 #display-choices > p > i {
-	display: none;
 	color: #008000;
 	margin-right: 5px;
 	position: absolute;

@@ -25,7 +25,9 @@
 		@include('forms.displays.file')
 		<div id="display-choices" data-multiple="{{$question->multiple ? 'true' : 'false'}}" data-vertical="{{$question->vertical ? 'true' : 'false'}}">
 			@foreach ($question->assets as $asset)
-				<p @if($question->vertical) style="width:100%" @endif> <span>{{$asset->position}}</span> {{$asset->content}} <i class="fa fa-check"></i> </p>
+				<p @if($question->vertical) style="width:100%" @endif>
+					<span>{{$asset->position}}</span> {{$asset->content}} <i class="fa fa-check hidden"></i>
+				</p>
 			@endforeach
 		</div>
 	</div>

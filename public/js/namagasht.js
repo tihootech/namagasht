@@ -22,7 +22,9 @@ $(document).on('click','.preview-theme',function () {
 	$('.preview-theme').removeClass('active');
 	$(this).addClass('active');
 	$('#form-theme').val(theme);
-	$('iframe.preview-iframe').contents().find('.theme-container').removeClass().addClass('theme-container theme-'+theme);
+	var iframe = $('iframe.preview-iframe').contents();
+	iframe.find('.theme-container').removeClass().addClass('theme-container theme-'+theme);
+	iframe.find('#form-theme-hidden-input').val(theme);
 });
 
 $(document).on('click','.action-li',function () {
@@ -68,12 +70,20 @@ $(document).on('input','.periorities',function () {
 });
 
 $(document).on('click','#display-choices > p',function () {
-	var multiple = $('#display-choices').attr('data-multiple');
-	if (multiple=='true') {
+	var multiple = $('#display-choices').data('multiple');
+	var target = $('#display-choices').siblings('input[name=answer]');
+	var value = $(this).data('value');
+	if (multiple) {
 		$(this).children('i').toggle();
+		var fval = [];
+		$('.fa-check:visible').each(function () {
+			fval.push($(this).parents('p').data('value'));
+		});
+		target.val(fval.join('&'));
 	}else {
 		$('#display-choices > p > i').hide();
 		$(this).children('i').show();
+		target.val(value);
 	}
 });
 
@@ -85,6 +95,7 @@ $(document).on('input','#enter-choices',function () {
 
 $(document).on('click','.display-range > span',function () {
 	$('.display-range > span').removeClass('selected');
+	$('#range-answer').val($(this).data('value'));
 	$(this).addClass('selected').fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 });
 
@@ -103,6 +114,7 @@ $(document).on('mouseleave','.porsline-degree > p',function () {
 $(document).on('click','.porsline-degree > p',function () {
 	var icon = $('.porsline-degree').attr('data-icon');
 	var index = $(this).attr('data-index');
+	$('#levelize-answer').val(index);
 	$('.porsline-degree i').removeClass('selected fa-'+icon).addClass('fa-'+icon+'-o');
 	$('.porsline-degree > p').slice(0,index).children('i').addClass('selected fa-'+icon).removeClass('fa-'+icon+'-o');
 });
