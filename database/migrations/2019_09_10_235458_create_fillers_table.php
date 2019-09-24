@@ -19,7 +19,7 @@ class CreateFillersTable extends Migration
             $table->string('uid');
             $table->string('client_ip');
             $table->string('device');
-            $table->bigInteger('points')->default(0);
+            $table->bigInteger('points')->nullable();
             $table->unsignedInteger('time')->nullable();
             $table->dateTime('finished_at')->nullable();
             $table->timestamps();

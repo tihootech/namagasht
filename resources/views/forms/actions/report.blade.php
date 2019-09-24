@@ -109,7 +109,7 @@
 								@endforeach
 								<td> {{pdate($filler->created_at)}} </td>
 								<td> {{$filler->finished_at ? pdate($filler->finished_at) : __('words.NOT_FINISHED')}} </td>
-								<td> {{$filler->points ?? __('words.NOT_FINISHED')}} </td>
+								<td> {{is_null($filler->points) ? __('words.NOT_FINISHED') : $filler->points}} </td>
 							</tr>
 						@endforeach
 					</tbody>
