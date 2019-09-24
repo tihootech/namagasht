@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Form;
 use App\Question;
 use App\Filler;
+use App\Answer;
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
@@ -214,8 +217,25 @@ class FormController extends Controller
         }
     }
 
-    public function display_action(Form $form, $action)
+    public function display_action(Form $form, $action, $page=null)
     {
-        return view("forms.actions.$action", compact('form', 'action'));
+        return view("forms.actions.$action", compact('form', 'action', 'page'));
+    }
+
+    public function delete_filler(Request $request)
+    {
+        if ($request->ids) {
+            foreach ($request->ids as $id) {
+                $filler = Filler::find($id);
+                if ($filler) {
+                    $filler->delete();
+                    Answer::where('filler_id', $filler->id)->delete();
+                }
+            }
+            $message = __('messages.ITEMS_REMOVED_SUCCESSFULLY');
+            return back()->withMessage($message);
+        }else {
+            return back()->withError(__('messages.NO_CHECKED_ID'));
+        }
     }
 }

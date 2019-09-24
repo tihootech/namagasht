@@ -68,6 +68,11 @@ input[disabled] {
 	color: #fff;
 }
 
+.flash-message.error, .flash-message.error > i {
+	background-color: #e3342f;
+	border: 1px solid #d0514d;
+}
+
 .flash-message > i {
 	position: absolute;
 	top:-10px;
@@ -79,7 +84,7 @@ input[disabled] {
 	cursor: pointer;
 }
 
-.pointer {
+.pointer, [data-check] {
 	cursor: pointer;
 }
 
@@ -584,7 +589,7 @@ input:checked + .slider:before {
 	padding: 10px;
 }
 
-/* Actions */
+/* Actions - Themes */
 .action-li {
 	position: relative;
 	cursor: pointer;
@@ -673,3 +678,23 @@ input:checked + .slider:before {
 
 .preview-theme-14 { background-color: #C5E0DC; color:#DE7B62; }
 .preview-theme-14 > span { background-color: #DE7B62; }
+
+
+/* Actions - Results */
+
+.nav-pills.porsline-pills > a {
+	padding: 15px;
+	color: #111;
+	border-radius: 0;
+}
+
+.nav-pills.porsline-pills > a.active, .nav-pills.porsline-pills > a:hover {
+	background-color: #DCF1FA;
+	color: #1B9CBF;
+}
+
+.form-visits-statics > div {
+	border: 1px solid #a8a8a8;
+	padding: 20px;
+	text-align: center;
+}

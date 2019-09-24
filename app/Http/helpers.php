@@ -24,3 +24,12 @@ function random_sha($l=10)
 {
 	return substr(md5(rand()), 0, $l);
 }
+
+function isMobileDevice() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
+function pdate($cdate, $format='Y-m-d H:i')
+{
+    return \Morilog\Jalali\Jalalian::fromCarbon($cdate)->format($format);
+}

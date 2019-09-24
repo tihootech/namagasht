@@ -15,9 +15,12 @@ class CreateFillersTable extends Migration
     {
         Schema::create('fillers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('uid');
             $table->unsignedInteger('form_id');
-            $table->boolean('finished')->default(0);
+            $table->string('uid');
+            $table->string('client_ip');
+            $table->string('device');
+            $table->unsignedInteger('time')->nullable();
+            $table->dateTime('finished_at')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@ $(document).ready(function () {
 	//initializers
 	$('[title]').tooltip();
 	$('[data-toggle=popover]').popover();
+	$('.pdp').persianDatepicker();
 
 	// flash message
 	$('.flash-message').fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).delay(3000).fadeOut(500);
@@ -220,6 +221,35 @@ $(document).on('click', '[data-clone-action]', function () {
 	});
 });
 
+$(document).on('click','[data-check]',function () {
+
+	var content = $(this).data('check');
+	var checked = $(this).attr('data-checked');
+
+	if (content == 'all') {
+		if (checked=='1') { // uncheck everything
+			$('[data-check]').removeClass('fa-check-square-o').addClass('fa-square-o').attr('data-checked', '0');
+		}else { // check everything
+			$('[data-check]').removeClass('fa-square-o').addClass('fa-check-square-o').attr('data-checked', '1');
+		}
+	}else {
+		$('[data-check=all]').removeClass('fa-check-square-o').addClass('fa-square-o').attr('data-checked', '0');
+		if (checked=='1') { //unckeck this one
+			$(this).removeClass('fa-check-square-o').addClass('fa-square-o').attr('data-checked', '0');
+		}else { // check this one
+			$(this).removeClass('fa-square-o').addClass('fa-check-square-o').attr('data-checked', '1');
+		}
+	}
+
+	$('#checked-ids > .ids').remove();
+	$('[data-checked=1]').each(function () {
+		var id = $(this).data('check');
+		if (id != 'all') {
+			$('#checked-ids').append('<input type="hidden" class="ids" name="ids[]" value="'+id+'">');
+		}
+	});
+
+});
 
 function toggle(target) {
 	$('#'+target).toggleClass('hidden');
