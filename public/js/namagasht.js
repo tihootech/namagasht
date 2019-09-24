@@ -196,10 +196,11 @@ $(document).on('focus','.range-tag',function () {
 });
 
 $(document).on('click', '[data-clone-action]', function () {
-	action = $(this).data('clone-action');
+	var action = $(this).data('clone-action');
+	var target = $(this).parents('#clone-container');
+	var min = target.data('min') ? target.data('min') : 2;
 
 	if (action == 'clone') {
-		var target = $(this).parents('#clone-container');
 		var content = $(this).parents('.clone-row').clone();
 		content.find('input').val(null);
 		$('#unclone-error').hide();
@@ -207,8 +208,8 @@ $(document).on('click', '[data-clone-action]', function () {
 	}
 
 	if (action == 'unclone') {
-		var count = $('.clone-row').length;
-		if (count > 2) {
+		var count = target.find('.clone-row').length;
+		if (count > min) {
 			$(this).parents('.clone-row').remove();
 		}else {
 			$('#unclone-error').slideDown();

@@ -102,4 +102,18 @@ class Form extends Model
         $ave = round(Filler::where('form_id', $this->id)->whereNotNull('time')->avg('time'));
         return gmdate("i:s", $ave);
     }
+
+    public function update_points($filler)
+    {
+        foreach ($this->questions as $question) {
+            if ($question->rules->count()) {
+                $raw_answer = $question->raw_answer($filler->uid);
+                if ($raw_answer) {
+                    foreach ($question->rules as $rule) {
+                        $rule->apply($filler, $raw_answer);
+                    }
+                }
+            }
+        }
+    }
 }

@@ -6,6 +6,7 @@ use App\Form;
 use App\Question;
 use App\Filler;
 use App\Answer;
+use App\QuestionPointRule as Rule;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,11 +20,6 @@ class FormController extends Controller
         return view('forms.index', compact('forms'));
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -34,12 +30,6 @@ class FormController extends Controller
         $form = Form::create($data);
         $message = __('messages.FORM_CREATED_SUCCESSFULLY');
         return redirect("forms/$form->id/edit")->withMessage($message);
-    }
-
-    public function show(Form $form)
-    {
-        dd('show');
-        return view('forms.show', compact('form'));
     }
 
     public function edit(Form $form)
@@ -155,11 +145,6 @@ class FormController extends Controller
         return back()->withMessage($message);
     }
 
-    public function destroy(Form $form)
-    {
-        //
-    }
-
     public function show_to_fill($form_uid, Question $question)
     {
         $form = Form::where('uid', $form_uid)->first();
@@ -209,6 +194,7 @@ class FormController extends Controller
             return redirect("form/$form->uid/$target_question->id")->withTheme($request->theme);
         }else {
             // finish form filling process
+            $form->update_points($filler);
             $filler_uid = session('filler_uid');
             $filler = Filler::where('uid', $filler_uid)->first();
             $filler->finish();
@@ -237,5 +223,17 @@ class FormController extends Controller
         }else {
             return back()->withError(__('messages.NO_CHECKED_ID'));
         }
+    }
+
+    public function point_rule(Question $question, Request $request)
+    {
+        $inputs = prepare_multiple($request->all());
+        Rule::where('question_id', $question->id)->delete();
+        foreach ($inputs as $record) {
+            $record['question_id'] = $question->id;
+            Rule::create($record);
+        }
+        $message = __('messages.CHANGES_MADE_SUCCESSFULLY');
+        return back()->withMessage($message);
     }
 }

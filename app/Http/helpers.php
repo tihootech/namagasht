@@ -33,3 +33,16 @@ function pdate($cdate, $format='Y-m-d H:i')
 {
     return \Morilog\Jalali\Jalalian::fromCarbon($cdate)->format($format);
 }
+
+function prepare_multiple($inputs)
+{
+    $result = [];
+    foreach ($inputs as $key => $array) {
+        if(is_array($array) && count($array)){
+            foreach ($array as $i => $value) {
+                $result[$i][$key] = $value;
+            }
+        }
+    }
+    return $result;
+}

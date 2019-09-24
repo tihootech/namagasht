@@ -84,7 +84,7 @@ input[disabled] {
 	cursor: pointer;
 }
 
-.pointer, [data-check] {
+.pointer, [data-check], [onclick] {
 	cursor: pointer;
 }
 
@@ -237,10 +237,22 @@ input[disabled] {
 	display: block;
 	text-align: right;
 	background-color: #fff;
-	padding: 20px 30px 20px 60px;
 	border-bottom: 1px solid #bebebe;
-	cursor: pointer;
 	font-size: 16px;
+}
+
+.white-card-header, .white-card-footer {
+	padding: 20px 30px 20px 60px;
+}
+
+.form-map .white-card .add-points {
+	position: relative;
+	bottom: 4px;
+}
+
+.form-map .white-card .redirect-to-edit {
+	color: #000;
+	display: block;
 }
 
 .form-map .white-card:first-child {

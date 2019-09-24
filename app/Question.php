@@ -13,6 +13,11 @@ class Question extends Model
         return $this->belongsTo(Form::class);
     }
 
+    public function rules()
+    {
+        return $this->hasMany(QuestionPointRule::class);
+    }
+
     public function assets()
     {
         $output = $this->hasMany(QuestionAsset::class);

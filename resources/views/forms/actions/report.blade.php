@@ -96,6 +96,7 @@
 							@endforeach
 							<th> {{__('words.START_DATE')}} </th>
 							<th> {{__('words.FINISH_DATE')}} </th>
+							<th> {{__('words.POINT')}} </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -108,6 +109,7 @@
 								@endforeach
 								<td> {{pdate($filler->created_at)}} </td>
 								<td> {{$filler->finished_at ? pdate($filler->finished_at) : __('words.NOT_FINISHED')}} </td>
+								<td> {{$filler->points ?? __('words.NOT_FINISHED')}} </td>
 							</tr>
 						@endforeach
 					</tbody>
