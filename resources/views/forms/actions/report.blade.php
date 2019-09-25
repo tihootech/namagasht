@@ -64,51 +64,106 @@
 
 			<div class="table-responsive p-2 p-md-5">
 
-				<table class="table table-sm table-hover table-bordered table-striped">
+				<div class="text-left">
+					<button type="button" class="btn btn-primary mx-1 px-3" title="{{__('words.ADVANCED_SEARCH')}}" data-toggle="collapse" data-target="#search-in-table">
+						<i class="fa fa-search"></i>
+					</button>
+					<button type="button" class="btn btn-success mx-1 px-3" title="{{__('words.EXCEL_OUTPUT')}}">
+						<i class="fa fa-file-excel-o"></i>
+					</button>
+					<button type="submit" form="checked-ids" class="btn btn-danger mx-1 px-3" title="{{__('words.DELETE_ITEMS')}}">
+						<i class="fa fa-trash"></i>
+					</button>
+				</div>
 
-					<div class="row">
-						<div class="col-md-3">
-							<label for="from"> {{__('words.FROM')}} : </label>
-							<input type="text" id="from" class="form-control pdp" name="from" value="{{request('from')}}">
+				<form class="collapse @if(request('search')) show @endif" action="{{url("form/$form->id/action/report/table")}}" id="search-in-table">
+					<hr>
+					<div class="row justify-content-center">
+						<div class="col-md-5">
+							<div class="card">
+								<div class="card-header">
+									{{__('words.SEARCH_ON_DATE')}}
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-6">
+											<label for="from"> {{__('words.FROM')}} : </label>
+											<input type="text" id="from" class="form-control pdp" name="from" autocomplete="off" value="{{request('from')}}">
+										</div>
+										<div class="col-6">
+											<label for="untill"> {{__('words.UNTILL')}} : </label>
+											<input type="text" id="untill" class="form-control pdp" name="untill" autocomplete="off" value="{{request('untill')}}">
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="col-md-3">
-							<label for="untill"> {{__('words.UNTILL')}} : </label>
-							<input type="text" id="untill" class="form-control pdp" name="untill" value="{{request('untill')}}">
+						<div class="col-md-5">
+							<div class="card">
+								<div class="card-header">
+									{{__('words.SEARCH_ON_POINT')}}
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-8">
+											<label for="op"> {{__('words.OPERATOR')}} </label>
+											<select class="form-control mx-1" name="op" id="op" required>
+												<option @if(request('op') == '=') selected @endif value="="> {{__('words.EQUALS')}} </option>
+												<option @if(request('op') == '!=') selected @endif value="!="> {{__('words.NOT_EQUALS')}} </option>
+												<option @if(request('op') == '<') selected @endif value="<"> {{__('words.LESS_THAN')}} </option>
+												<option @if(request('op') == '>') selected @endif value=">"> {{__('words.GREATER_THAN')}} </option>
+												<option @if(request('op') == '>=') selected @endif value=">="> {{__('words.GREATER_THAN_OR_EQUAL')}} </option>
+												<option @if(request('op') == '<=') selected @endif value="<="> {{__('words.LESS_THAN_OR_EQUAL')}} </option>
+											</select>
+										</div>
+										<div class="col-4">
+											<label for="points"> {{__('words.POINT')}} : </label>
+											<input type="number" id="points" class="form-control" name="points" value="{{request('points')}}">
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="col-md-2 mr-auto align-self-center">
-							<button type="button" class="btn btn-success px-3" title="{{__('words.EXCEL_OUTPUT')}}">
-								<i class="fa fa-file-excel-o"></i>
+						<div class="w-100 my-2"></div>
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-primary btn-block mx-1 px-3" name="search" value="1">
+								{{__('words.SEARCH')}} <i class="fa fa-search mr-1"></i>
 							</button>
-							<button type="submit" form="checked-ids" class="btn btn-danger px-3" title="{{__('words.DELETE_ITEMS')}}">
-								<i class="fa fa-trash"></i>
-							</button>
+							<a href="{{url("form/$form->id/action/report/table")}}" class="btn btn-outline-primary btn-block mx-1 px-3">
+								{{__('words.DISMISS')}} <i class="fa fa-times mr-1"></i>
+							</a>
 						</div>
 					</div>
+				</form>
 
-					<hr>
+				<hr>
+
+				<table class="table table-sm table-hover table-bordered table-striped">
 
 					<thead>
 						<tr>
 							<th> <i class="fa fa-square-o" data-check="all" data-checked="0"></i> </th>
 							<th> {{__('words.FILLER_UID')}} </th>
+							<th> {{__('words.FILLER_IP')}} </th>
 							@foreach ($form->questions as $question)
 								<th> {{$question->title}} </th>
 							@endforeach
 							<th> {{__('words.START_DATE')}} </th>
-							<th> {{__('words.FINISH_DATE')}} </th>
+							<th> {{__('words.TIME')}} </th>
 							<th> {{__('words.POINT')}} </th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($form->fillers as $filler)
+						@foreach ($fillers ?? $form->fillers as $filler)
 							<tr>
 								<td> <i class="fa fa-square-o" data-check="{{$filler->id}}" data-checked="0"></i> </td>
 								<td> {{$filler->uid}} </td>
+								<td> {{$filler->client_ip}} </td>
 								@foreach ($form->questions as $question)
 									<td> {{$question->raw_answer($filler->uid)}} </td>
 								@endforeach
 								<td> {{pdate($filler->created_at)}} </td>
-								<td> {{$filler->finished_at ? pdate($filler->finished_at) : __('words.NOT_FINISHED')}} </td>
+								<td> {{$filler->time ?? __('words.NOT_FINISHED')}} </td>
 								<td> {{is_null($filler->points) ? __('words.NOT_FINISHED') : $filler->points}} </td>
 							</tr>
 						@endforeach

@@ -85,14 +85,20 @@
 											<option @if($rule->type == '!=') selected @endif value="!="> {{__('words.NOT_EQUALS')}} </option>
 											<option @if($rule->type == '<') selected @endif value="<"> {{__('words.LESS_THAN')}} </option>
 											<option @if($rule->type == '>') selected @endif value=">"> {{__('words.GREATER_THAN')}} </option>
-											<option @if($rule->type == '>=') selected @endif value=">="> {{__('words.GREATER_OR_EQUAL_THAN')}} </option>
-											<option @if($rule->type == '<=') selected @endif value="<="> {{__('words.LESS_OR_EQUAL_THAN')}} </option>
+											<option @if($rule->type == '>=') selected @endif value=">="> {{__('words.GREATER_THAN_OR_EQUAL')}} </option>
+											<option @if($rule->type == '<=') selected @endif value="<="> {{__('words.LESS_THAN_OR_EQUAL')}} </option>
 										</select>
 										@if (count($question->assets))
 											<select class="form-control mx-1" name="value[]" required>
 												@foreach ($question->assets as $asset)
 													<option @if($asset->content == $rule->value) selected @endif>{{$asset->content}}</option>
 												@endforeach
+											</select>
+										@elseif($question->range)
+											<select class="form-control mx-1" name="value[]" required>
+												@for ($i = $question->range_start(); $i <= $question->range_end(); $i++)
+													<option @if($i == $rule->value) selected @endif>{{$i}}</option>
+												@endfor
 											</select>
 										@else
 											<input type="text" class="form-control mx-1" name="value[]" value="{{$rule->value}}" required>

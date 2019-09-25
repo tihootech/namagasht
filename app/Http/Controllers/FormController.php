@@ -203,9 +203,22 @@ class FormController extends Controller
         }
     }
 
-    public function display_action(Form $form, $action, $page=null)
+    public function display_action(Form $form, $action, $page=null, Request $request)
     {
-        return view("forms.actions.$action", compact('form', 'action', 'page'));
+        if ($page=='table' && $request->search) {
+            $fillers = Filler::query();
+            if ($request->from) {
+                $fillers = $fillers->where('created_at', '>=' , persian_to_carbon($request->from));
+            }
+            if ($request->untill) {
+                $fillers = $fillers->where('created_at', '<=' , persian_to_carbon($request->untill));
+            }
+            if ($request->points) {
+                $fillers = $fillers->where('points', $request->op , $request->points);
+            }
+            $fillers = $fillers->get();
+        }
+        return view("forms.actions.$action", compact('form', 'action', 'page', 'fillers'));
     }
 
     public function delete_filler(Request $request)
