@@ -2,24 +2,23 @@
 
 @section('form-panel')
 	<div class="form-options">
-		<a @if($form->has_welcome_page()) class="disabled" @else href="{{url("forms/$form->id/edit?f=welcome_page")}}" @endif> {{__('words.WELCOME_PAGE')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=text")}}"> {{__('words.TEXT')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=quiz")}}"> {{__('words.QUIZ')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=textarea")}}"> {{__('words.TEXTAREA')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=quiz_with_picture")}}"> {{__('words.QUIZ_WITH_PICTURE')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=group_question")}}"> {{__('words.GROUP_QUESTION')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=list")}}"> {{__('words.LIST')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=number")}}"> {{__('words.NUMBER')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=range")}}"> {{__('words.RANGE')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=email")}}"> {{__('words.EMAIL')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=levelize")}}"> {{__('words.LEVELIZE')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=link")}}"> {{__('words.LINK')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=priority")}}"> {{__('words.PRIORITY')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=string_with_no_answer")}}"> {{__('words.STRING_WITH_NO_ANSWER')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=upload_file")}}"> {{__('words.UPLOAD_FILE')}} </a>
-		<a href="{{url("forms/$form->id/edit?f=thanks_page")}}">
+		<a @if($form->has_welcome_page()) class="disabled" @else draggable="true" href="{{url("forms/$form->id/edit?f=welcome_page")}}" @endif> {{__('words.WELCOME_PAGE')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=text")}}"> {{__('words.TEXT')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=quiz")}}"> {{__('words.QUIZ')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=textarea")}}"> {{__('words.TEXTAREA')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=quiz_with_picture")}}"> {{__('words.QUIZ_WITH_PICTURE')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=group_question")}}"> {{__('words.GROUP_QUESTION')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=list")}}"> {{__('words.LIST')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=number")}}"> {{__('words.NUMBER')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=range")}}"> {{__('words.RANGE')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=email")}}"> {{__('words.EMAIL')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=levelize")}}"> {{__('words.LEVELIZE')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=link")}}"> {{__('words.LINK')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=priority")}}"> {{__('words.PRIORITY')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=string_with_no_answer")}}"> {{__('words.STRING_WITH_NO_ANSWER')}} </a>
+		<a draggable="true" href="{{url("forms/$form->id/edit?f=upload_file")}}"> {{__('words.UPLOAD_FILE')}} </a>
+		<a @if($form->has_thanks_page()) class="disabled" @else draggable="true" href="{{url("forms/$form->id/edit?f=thanks_page")}}" @endif>
 			{{__('words.THANKS_PAGE')}}
-			<i class="fa fa-question-circle mirror-rotate mr-1" data-toggle="popover" data-content="{{__('messages.TNX_PAGE_POPOVER')}}" data-placement="top" data-trigger="hover" data-original-title="" title=""></i>
 		</a>
 	</div>
 @endsection
@@ -35,7 +34,7 @@
 					<a href="{{url("questions/{$form->welcome_page->id}/delete")}}"> <i class="fa fa-trash text-dark float-left"></i> </a>
 				</div>
 			@else
-				<div class="header-footer">
+				<div class="header-footer" ondrop="drop(event)" ondragover="allowDrop(event)">
 					{{__('messages.DRAG_WELCOME_PAGE')}}
 				</div>
 			@endif
@@ -65,14 +64,14 @@
 										{{__('words.ADD_POINTS')}}
 									</button>
 								@endif
-								<a href="#" class="mx-2">
-									<i title="{{__('words.DUPLICATE')}}" class="fa fa-clone text-primary"></i>
+								<a href="{{url("forms/$form->id/edit?f=$question->type&d=1&qid={$question->id}")}}" class="mx-2">
+									<i data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.DUPLICATE')}}" class="fa fa-clone text-primary"></i>
 								</a>
 								<a href="{{url("questions/{$question->id}/delete")}}" class="mx-2">
-									<i title="{{__('words.DELETE')}}" class="fa fa-trash text-danger"></i>
+									<i data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.DELETE')}}" class="fa fa-trash text-danger"></i>
 								</a>
 								<a href="#" class="mx-2">
-									<i title="{{__('words.MOVE')}}" class="fa fa-exchange text-dark rotate"></i>
+									<i data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.MOVE')}}" class="fa fa-exchange text-dark rotate"></i>
 								</a>
 							</div>
 						</div>
@@ -132,9 +131,9 @@
 					</form>
 				</div>
 			@endforeach
-			<div class="question-type mt-3">
-				{{__('messages.DRAG_QUESTION_TYPE')}}
-			</div>
+		</div>
+		<div class="question-type mt-3" ondrop="drop(event)" ondragover="allowDrop(event)">
+			{{__('messages.DRAG_QUESTION_TYPE')}}
 		</div>
 
 		<div id="thanks-page" class="mb-5">
@@ -145,7 +144,7 @@
 					<a href="{{url("questions/{$form->thanks_page->id}/delete")}}"> <i class="fa fa-trash text-dark float-left"></i> </a>
 				</div>
 			@else
-				<div class="header-footer">
+				<div class="header-footer" ondrop="drop(event)" ondragover="allowDrop(event)">
 					{{__('messages.DRAG_THANKS_PAGE')}}
 				</div>
 			@endif

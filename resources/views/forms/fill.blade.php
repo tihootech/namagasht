@@ -11,11 +11,24 @@
 		</div>
 
 	@elseif ($question)
+
 		<form action="{{url("form/fill/$form->id/$question->id")}}" method="post">
 			@csrf
 			<input type="hidden" name="theme" value="{{session('theme')}}" id="form-theme-hidden-input">
+			@if ($preview)
+				<input type="hidden" name="preview" value="1">
+			@endif
 
 			<div class="theme-container theme-{{session('theme') ?? $form->theme}}" @if($form->bg_image) style="background:url('{{asset($form->bg_image)}}')" @endif>
+
+				@if ($preview && !request('t'))
+					<div class="alert alert-warning alert-dismissible fade show">
+						{{__('messages.FORM_PREVIEW')}} <a href="{{url("form/$form->uid")}}">{{__('words.DO_CLICK')}}</a>
+						<button type="button" class="close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				@endif
 
 				<div class="fill-form-body">
 

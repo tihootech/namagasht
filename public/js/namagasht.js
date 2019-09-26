@@ -1,8 +1,9 @@
 $(document).ready(function () {
 
 	//initializers
-	$('[title]').tooltip();
+	// $('[title]').tooltip();
 	$('[data-toggle=popover]').popover();
+	$('[data-popover=popover]').popover();
 	$('.pdp').persianDatepicker();
 
 	$( ".choices-sortable" ).sortable({
@@ -45,7 +46,7 @@ $(document).ready(function () {
 	// flash message
 	$('.flash-message').not('.hidden').fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).delay(3000).fadeOut(500);
 	$('.flash-message > i').click(function () {
-		$(this).parents('.flash-message').remove();
+		$(this).parents('.flash-message').hide();
 	});
 
 	// file display
@@ -355,4 +356,18 @@ function displaySelectList(type) {
 
 function redirect(url) {
 	location.href = url;
+}
+
+function dragStart(event) {
+  event.dataTransfer.setData("Text", event.target.id);
+}
+
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function drop(event) {
+  event.preventDefault();
+  var data = event.dataTransfer.getData("Text");
+  redirect(data)
 }

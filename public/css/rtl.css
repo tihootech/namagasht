@@ -24,3 +24,13 @@ body {
 	border-left:unset;
 	border-right:1px solid #ced4da;
 }
+
+.alert-dismissible .close {
+	left: 0;
+	right: unset;
+}
+
+.alert-dismissible {
+	padding-right: 1.75rem; 
+	padding-left: 3.85rem;
+}

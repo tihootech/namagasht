@@ -63,10 +63,10 @@
 @endsection
 
 @section('form-body')
-	<iframe src="{{url("form/$form->uid")}}" class="preview-iframe"></iframe>
+	<iframe src="{{url("form/$form->uid?p=1&t=1")}}" class="preview-iframe"></iframe>
 	<div class="p-3">
 
-		<button type="button" class="btn btn-primary mx-1 px-3 py-2 float-right" title="{{__('words.RELOAD')}}" onclick="location.reload()">
+		<button type="button" class="btn btn-primary mx-1 px-3 py-2 float-right" data-toggle="popover" data-content="{{__('words.RELOAD')}}" data-placement="top" data-trigger="hover" onclick="location.reload()">
 			<i class="fa fa-refresh"></i>
 		</button>
 

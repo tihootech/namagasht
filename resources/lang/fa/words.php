@@ -132,6 +132,7 @@ return [
     'FILLER_IP' => 'IP پاسخ دهنده',
     'OPERATOR' => 'عملگر',
     'SECOND' => 'ثانیه',
+    'DO_CLICK' => 'کلیک کنید',
     'SEARCH_ON_DATE' => 'جستجو بر اساس تاریخ',
     'SEARCH_ON_POINT' => 'جستجو بر اساس امتیاز  ',
 ];

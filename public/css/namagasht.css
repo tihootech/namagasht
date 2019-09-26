@@ -158,6 +158,11 @@ input[disabled] {
 	outline: none;
 }
 
+.edit-form-header-input:hover {
+	border: 0.5px solid #0094B5;
+	outline: none;
+}
+
 .form-panel {
 	position: fixed;
 	top: 60px;

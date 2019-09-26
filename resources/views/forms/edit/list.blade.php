@@ -11,7 +11,7 @@
 		<li class="list-group-item">
 			<div class="pos-relative">
 				{{__('words.CHOICES')}}
-				<i class="fa fa-question-circle mirror-rotate mr-1" aria-hidden="true" href="#" data-toggle="popover" data-content="{{__('messages.SEPERATE_CHOICES_BY_ENTER')}}" data-placement="left" data-trigger="hover" data-original-title="" title=""></i>
+				<i class="fa fa-question-circle mirror-rotate mr-1" aria-hidden="true" href="#" data-toggle="popover" data-content="{{__('messages.SEPERATE_CHOICES_BY_ENTER')}}" data-placement="left" data-trigger="hover"></i>
 			</div>
 			<div class="form-group mt-3">
 				<textarea name="choices" id="enter-choices" rows="4" class="form-control" placeholder="{{__('words.ENTER_CHOICES')}}...">{{$question->list_text()}}</textarea>

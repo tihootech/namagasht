@@ -33,7 +33,7 @@
 						<h4> {{round($form->ratio())}}% </h4>
 						<p class="text-muted">
 							{{__('words.ANSWER_RATIO')}}
-							<i class="fa fa-question-circle mirror-rotate mr-1" title="{{__('messages.ANSWER_RATIO_INFO')}}"></i>
+							<i class="fa fa-question-circle mirror-rotate mr-1" data-toggle="popover" data-content="{{__('messages.ANSWER_RATIO_INFO')}}" data-placement="top" data-trigger="hover"></i>
 						</p>
 					</div>
 					<div class="col-md-3">
@@ -65,13 +65,13 @@
 			<div class="table-responsive p-2 p-md-5">
 
 				<div class="text-left">
-					<button type="button" class="btn btn-primary mx-1 px-3" title="{{__('words.ADVANCED_SEARCH')}}" data-toggle="collapse" data-target="#search-in-table">
+					<button type="button" class="btn btn-primary mx-1 px-3" data-popover="popover" data-content="{{__('words.ADVANCED_SEARCH')}}" data-placement="top" data-trigger="hover" data-toggle="collapse" data-target="#search-in-table">
 						<i class="fa fa-search"></i>
 					</button>
-					<button type="button" class="btn btn-success mx-1 px-3" title="{{__('words.EXCEL_OUTPUT')}}">
+					<button type="button" class="btn btn-success mx-1 px-3" data-toggle="popover" data-content="{{__('words.EXCEL_OUTPUT')}}" data-placement="top" data-trigger="hover">
 						<i class="fa fa-file-excel-o"></i>
 					</button>
-					<button type="submit" form="checked-ids" class="btn btn-danger mx-1 px-3" title="{{__('words.DELETE_ITEMS')}}">
+					<button type="submit" form="checked-ids" class="btn btn-danger mx-1 px-3" data-toggle="popover" data-content="{{__('words.DELETE_ITEMS')}}" data-placement="top" data-trigger="hover">
 						<i class="fa fa-trash"></i>
 					</button>
 				</div>
@@ -173,7 +173,7 @@
 									</td>
 								@endforeach
 								<td> {{pdate($filler->created_at)}} </td>
-								<td @if($filler->time) title="{{$filler->time.' '.__('words.SECOND')}}" @endif>
+								<td @if($filler->time) data-toggle="popover" data-content="{{$filler->time.' '.__('words.SECOND')}}" data-placement="top" data-trigger="hover" @endif>
 									{{$filler->time ? gmdate("i:s", $filler->time) : __('words.NOT_FINISHED')}}
 								</td>
 								<td> {{is_null($filler->points) ? __('words.NOT_FINISHED') : $filler->points}} </td>

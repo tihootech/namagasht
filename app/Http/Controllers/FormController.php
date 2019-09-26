@@ -38,7 +38,8 @@ class FormController extends Controller
         $question = $question_id ? Question::find($question_id) : new Question;
         $fragment = request('f') ?? 'main';
         $action = 'edit';
-        return view("forms.edit.$fragment", compact('form', 'fragment', 'question', 'action'));
+        $duplicate = request('d') ?? false;
+        return view("forms.edit.$fragment", compact('form', 'fragment', 'question', 'action', 'duplicate'));
     }
 
     public function update(Request $request, Form $form)
@@ -153,7 +154,8 @@ class FormController extends Controller
             if (!$question->id || !$filler) {
                 $question = $form->welcome_page;
             }
-            return view('forms.fill', compact('form', 'question'));
+            $preview = request('p');
+            return view('forms.fill', compact('form', 'question', 'preview'));
         }else {
             abort(404);
         }
@@ -173,7 +175,7 @@ class FormController extends Controller
         }
         if ($request->dir == 'next') {
 
-            if( !in_array($question->type, Form::$filters) ) {
+            if( !$request->preview && !in_array($question->type, Form::$filters) ) {
                 // register filler answer
                 $answer = is_array($request->answer) ? implode('&&&', $request->answer) : $request->answer;
                 $question->register_answer($filler->id, $answer);
@@ -218,7 +220,8 @@ class FormController extends Controller
             }
             $fillers = $fillers->get();
         }
-        return view("forms.actions.$action", compact('form', 'action', 'page', 'fillers'));
+        $fragment = null;
+        return view("forms.actions.$action", compact('form', 'action', 'page', 'fillers', 'fragment'));
     }
 
     public function delete_filler(Request $request)
