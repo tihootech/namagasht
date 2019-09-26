@@ -3,10 +3,10 @@
 		{{__('words.CHOICES')}}
 	</div>
 	<div class="form-group mt-3">
-		<div class="container-fluid" id="clone-container">
+		<div class="container-fluid choices-sortable" id="clone-container">
 			@for ($i=1; $i <= $question->assets_count_or_two(); $i++)
 				<div class="row align-items-center clone-row my-2">
-					<div class="col-1">
+					<div class="col-1 draggable">
 						<i class="fa fa-arrows-v fa-half-x"></i>
 					</div>
 					<div class="col-1">

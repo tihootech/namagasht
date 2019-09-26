@@ -37,6 +37,10 @@ a:hover {
 	padding: 3px 30px;
 }
 
+.draggable {
+	cursor: all-scroll;
+}
+
 input[disabled] {
 	cursor: not-allowed;
 }
@@ -66,6 +70,7 @@ input[disabled] {
 	border-radius: 4px;
 	padding: 10px 20px;
 	color: #fff;
+	z-index: 999;
 }
 
 .flash-message.error, .flash-message.error > i {

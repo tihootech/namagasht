@@ -175,7 +175,7 @@ class FormController extends Controller
 
             if( !in_array($question->type, Form::$filters) ) {
                 // register filler answer
-                $answer = is_array($request->answer) ? implode('&', $request->answer) : $request->answer;
+                $answer = is_array($request->answer) ? implode('&&&', $request->answer) : $request->answer;
                 $question->register_answer($filler->id, $answer);
             }
 
@@ -248,5 +248,14 @@ class FormController extends Controller
         }
         $message = __('messages.CHANGES_MADE_SUCCESSFULLY');
         return back()->withMessage($message);
+    }
+
+    public function question_positions(Form $form, Request $request)
+    {
+        foreach ($request->all() as $i => $id) {
+            $question = Question::find($id);
+            $question->position = $i+1;
+            $question->save();
+        }
     }
 }

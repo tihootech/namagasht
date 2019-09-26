@@ -30,7 +30,7 @@
 						<p class="text-muted"> {{__('words.ANSWERS')}} </p>
 					</div>
 					<div class="col-md-3">
-						<h4> {{$form->ratio()}}% </h4>
+						<h4> {{round($form->ratio())}}% </h4>
 						<p class="text-muted">
 							{{__('words.ANSWER_RATIO')}}
 							<i class="fa fa-question-circle mirror-rotate mr-1" title="{{__('messages.ANSWER_RATIO_INFO')}}"></i>
@@ -48,12 +48,12 @@
 					<div class="col-md-4">
 						<h5> {{__('words.MOBILE')}} </h5>
 						<p class="text-muted my-1"> {{$form->mobile_visits('count')}} </p>
-						<p class="text-muted my-1"> {{$form->mobile_visits('percent')}}% </p>
+						<p class="text-muted my-1"> {{round($form->mobile_visits('percent'))}}% </p>
 					</div>
 					<div class="col-md-4">
 						<h5> {{__('words.LAPTOP')}} </h5>
 						<p class="text-muted my-1"> {{$form->laptop_visits('count')}} </p>
-						<p class="text-muted my-1"> {{$form->laptop_visits('percent')}}% </p>
+						<p class="text-muted my-1"> {{round($form->laptop_visits('percent'))}}% </p>
 					</div>
 				</div>
 
@@ -160,10 +160,22 @@
 								<td> {{$filler->uid}} </td>
 								<td> {{$filler->client_ip}} </td>
 								@foreach ($form->questions as $question)
-									<td> {{$question->raw_answer($filler->uid)}} </td>
+									<td>
+										@if (strpos($question->raw_answer($filler->uid), '&&&') !== false)
+											<ul class="pr-4">
+												@foreach (explode('&&&', $question->raw_answer($filler->uid)) as $item)
+													<li>{{$item}}</li>
+												@endforeach
+											</ul>
+										@else
+											 {{$question->raw_answer($filler->uid)}}
+										@endif
+									</td>
 								@endforeach
 								<td> {{pdate($filler->created_at)}} </td>
-								<td> {{$filler->time ?? __('words.NOT_FINISHED')}} </td>
+								<td @if($filler->time) title="{{$filler->time.' '.__('words.SECOND')}}" @endif>
+									{{$filler->time ? gmdate("i:s", $filler->time) : __('words.NOT_FINISHED')}}
+								</td>
 								<td> {{is_null($filler->points) ? __('words.NOT_FINISHED') : $filler->points}} </td>
 							</tr>
 						@endforeach
@@ -178,9 +190,27 @@
 			</div>
 
 		</div>
+
 		<div class="tab-pane fade @if($page=='charts') active show @endif" id="charts">
-			33333
+
+			<div class="container py-4">
+				@foreach ($form->questions as $question)
+
+					<div class="px-1 px-md-3">
+						<h4> {{$question->position}}. {{$question->title}} </h4>
+						@if ($question->range || $question->assets->count())
+							@include('forms.partials.action_charts')
+						@else
+							<p class="text-center py-3"> <i class="fa fa-warning ml-1"></i> {{__('messages.NO_CHART')}} </p>
+						@endif
+					</div>
+					<hr>
+
+				@endforeach
+			</div>
+
 		</div>
+
 	</div>
 
 @endsection

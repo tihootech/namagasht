@@ -15,7 +15,7 @@ class QuestionAsset extends Model
     {
     	$raw_answer = $this->question->raw_answer($filler_uid) ?? null;
 		if ($raw_answer) {
-			$answers = explode('&', $raw_answer);
+			$answers = explode('&&&', $raw_answer);
 			return in_array($this->content, $answers);
 		}else {
 			return false;

@@ -5,8 +5,45 @@ $(document).ready(function () {
 	$('[data-toggle=popover]').popover();
 	$('.pdp').persianDatepicker();
 
+	$( ".choices-sortable" ).sortable({
+		out: function( event, ui ) {
+			$('.choices-sortable > .clone-row').each(function (index) {
+				$(this).find('.increment').html(index+1);
+			});
+		}
+	});
+
+	$( ".periority-display").sortable({
+		out: function( event, ui ) {
+			$('.periority-display > p').each(function (index) {
+				$(this).find('span').html(index+1);
+			});
+		}
+	});
+
+	$( "#questions").sortable({
+		out: function( event, ui ) {
+			var base = $('base').attr('href');
+			var formId = $('#questions').data('form-id');
+			var data = [];
+			$('#questions > .white-card').each(function (index) {
+				$(this).find('.question-position').html(index+1);
+				data.push($(this).data('question-id'));
+			});
+
+			data = Object.assign({}, data);
+			$.get({
+				url: base+'/form/question_positions/'+formId,
+				data: data,
+				success: function () {
+					$('#q-orders-message').fadeIn(500).fadeOut(500).fadeIn(500).delay(3000).fadeOut(500);
+				}
+			});
+		}
+	});
+
 	// flash message
-	$('.flash-message').fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).delay(3000).fadeOut(500);
+	$('.flash-message').not('.hidden').fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).delay(3000).fadeOut(500);
 	$('.flash-message > i').click(function () {
 		$(this).parents('.flash-message').remove();
 	});
@@ -80,7 +117,7 @@ $(document).on('click','#display-choices > p',function () {
 		$('.fa-check:visible').each(function () {
 			fval.push($(this).parents('p').data('value'));
 		});
-		target.val(fval.join('&'));
+		target.val(fval.join('&&&'));
 	}else {
 		$('#display-choices > p > i').hide();
 		$(this).children('i').show();
@@ -287,7 +324,7 @@ function displaySelectList(type) {
 	$('.porsline-select-dropdown').html(null);
 	var choices = $('#enter-choices').val() ? $('#enter-choices').val().split(/\n/) : [];
 	var choices = choices.filter(function (el) {
-	  return el != '';
+		return el != '';
 	});
 
 	var phrase = $('.porsline-select > input').val();

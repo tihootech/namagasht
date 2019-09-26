@@ -2,6 +2,7 @@
 <html lang="fa">
 <head>
 	<meta charset="utf-8">
+	<base href="{{url("/")}}">
 	<title>Namagasht</title>
 
 	<link rel="stylesheet" href="{{asset('/css/app.css')}}">
@@ -33,6 +34,7 @@
 
 	<script src="{{asset('/js/app.js')}}" charset="utf-8"></script>
 	<script src="{{asset('/js/pdp.min.js')}}" charset="utf-8"></script>
+	<script src="{{asset('/js/jquery-ui.js')}}" charset="utf-8"></script>
 	<script src="{{asset('/js/namagasht.js')}}" charset="utf-8"></script>
 </body>
 </html>

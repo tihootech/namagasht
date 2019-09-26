@@ -41,14 +41,18 @@
 			@endif
 		</div>
 
-		<div id="questions" class="mb-5">
+		<div class="flash-message hidden" id="q-orders-message">
+			{{__('messages.QUESTION_ORDERS_CHANGED')}}
+			<i class="fa fa-times"></i>
+		</div>
+		<div id="questions" class="mb-5" data-form-id="{{$form->id}}">
 			@foreach ($form->questions as $question)
-				<div class="white-card">
+				<div class="white-card" data-question-id="{{$question->id}}">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-8">
 								<a href="{{url("forms/$form->id/edit?f=$question->type&qid={$question->id}")}}" class="redirect-to-edit py-3">
-									{{$question->position}}. {{$question->title}}
+									<span class="question-position">{{$question->position}}</span>. {{$question->title}}
 								</a>
 							</div>
 							<div class="col-md-4 text-left py-3 pl-4">

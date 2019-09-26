@@ -171,7 +171,10 @@
 							@include('forms.displays.file')
 							<div class="periority-display mt-4">
 								@foreach ($question->assets as $i => $asset)
-									<p> <i class="fa fa-exchange"></i> <span>{{$i+1}}</span> {{$asset->content}} </p>
+									<p>
+										<input type="hidden" name="answer[]" value="{{$asset->content}}">
+										<i class="fa fa-exchange"></i> <span>{{$i+1}}</span> {{$asset->content}}
+									</p>
 								@endforeach
 							</div>
 						@endif
