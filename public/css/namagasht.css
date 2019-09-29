@@ -41,6 +41,10 @@ a:hover {
 	cursor: all-scroll;
 }
 
+.more-x {
+	font-size: 1.25em;
+}
+
 input[disabled] {
 	cursor: not-allowed;
 }
@@ -387,8 +391,9 @@ input[disabled] {
 }
 
 #display-choices > p > img {
-	max-width: 100px;
+	max-width: 200px;
 	margin: 10px;
+	display: block;
 }
 
 .porsline-select {

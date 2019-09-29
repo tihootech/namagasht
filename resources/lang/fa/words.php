@@ -112,6 +112,8 @@ return [
     'DELETE_ITEMS' => 'حذف موارد',
     'ADD_POINTS' => 'افزودن امتیاز',
     'EDIT_POINTS' => 'ویرایش امتیاز',
+    'CHANGE_FILE' => 'تغییر فایل',
+    'FILE_SELECTED' => 'فایل موردنظر انتخاب شد.',
     'DISMISS' => 'انصراف',
     'IF_USER_ANSWER' => 'اگر پاسخ کاربر',
     'EQUALS' => 'معادل است با',

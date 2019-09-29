@@ -24,9 +24,12 @@
 		@include('forms.displays.description')
 		@include('forms.displays.file')
 		<div id="display-choices" data-multiple="{{$question->multiple ? 'true' : 'false'}}" data-vertical="{{$question->vertical ? 'true' : 'false'}}">
-			@foreach ($question->assets as $asset)
-				<p @if($question->vertical) style="width:100%" @endif>
-					<span>{{$asset->position}}</span> {{$asset->content}} <i class="fa fa-check hidden"></i>
+			@foreach ($question->assets as $i => $asset)
+				<p @if($question->vertical) style="width:100%" @endif data-index="{{$i+1}}">
+					<span>{{$i+1}}</span>
+					<b> {{$asset->content}} </b>
+					<i class="fa fa-check hidden"></i>
+					<img src="{{asset($asset->image_path)}}" id="preview-{{$i+1}}">
 				</p>
 			@endforeach
 		</div>

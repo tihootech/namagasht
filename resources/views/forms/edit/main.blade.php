@@ -114,10 +114,10 @@
 											<option @if($rule->action == '/') selected @endif value="/"> {{__('words.DO_DIVISION')}} </option>
 										</select>
 										<input type="number" class="form-control mx-1" name="target[]" value="{{$rule->target}}" required>
-										<a href="#" class="mx-1" data-clone-action="clone">
+										<a href="javascript:void" class="mx-1" data-clone-action="clone">
 											<i class="fa fa-plus text-success"></i>
 										</a>
-										<a href="#" class="mx-1" data-clone-action="unclone">
+										<a href="javascript:void" class="mx-1" data-clone-action="unclone">
 											<i class="fa fa-times text-danger"></i>
 										</a>
 									</div>

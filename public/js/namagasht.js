@@ -206,16 +206,6 @@ $(document).on('input','#form-maker',function () {
 	$('.range-label-center').html($('#center').val());
 	$('.range-label-right').html($('#right').val() ? $('#right').val() : $('.display-range > span').first().text());
 
-	$('#display-choices').html(null);
-	$('.choices').each(function (index) {
-		index++;
-		var value = $(this).val();
-		if (value) {
-			$('#display-choices').append('<p> <span>'+index+'</span>'+value+'<i class="fa fa-check"></i> </p>');
-		}
-	});
-	equlizeWidthForChoices();
-
 });
 
 $(document).on('input','.custom-range',function () {
@@ -240,6 +230,7 @@ $(document).on('click', '[data-clone-action]', function () {
 
 	if (action == 'clone') {
 		var content = $(this).parents('.clone-row').clone();
+		content.attr('data-index', $('.clone-row').length + 1)
 		content.find('input').val(null);
 		$('#unclone-error').hide();
 		target.append(content);
@@ -247,8 +238,10 @@ $(document).on('click', '[data-clone-action]', function () {
 
 	if (action == 'unclone') {
 		var count = target.find('.clone-row').length;
+		var index = $(this).parents('.clone-row').data('index');
 		if (count > min) {
 			$(this).parents('.clone-row').remove();
+			$('[data-index='+index+']').remove();
 		}else {
 			$('#unclone-error').slideDown();
 		}
@@ -316,7 +309,7 @@ function equlizeWidthForChoices() {
 			var thisWidth = $(this).width();
 			width = thisWidth > width ? thisWidth : width;
 		});
-		$('#display-choices > p').css('width', width+50);
+		// $('#display-choices > p').css('width', width+50);
 	}
 }
 
@@ -370,4 +363,42 @@ function drop(event) {
   event.preventDefault();
   var data = event.dataTransfer.getData("Text");
   redirect(data)
+}
+
+$(document).on('click','.choice-file-upload',function () {
+	$(this).siblings('input').trigger('click');
+});
+
+$(document).on('change','#user-file',function () {
+	$(this).siblings('span').show();
+	var target = $(this).siblings('label');
+	target.css('border-color', '#77C475');
+	target.find('#choose').hide();
+	target.find('#change').show();
+});
+
+$(document).on('input','.display-choices-row .choices',function () {
+	var index = $(this).parents('.display-choices-row').data('index');
+	var target = $('#display-choices > p[data-index='+index+']');
+	var value = $(this).val();
+	if (target.length == 0) {
+		$('#display-choices').append('<p data-index="'+index+'"> <span>'+index+'</span> <b>'+value+'</b> <i class="fa fa-check"></i> <img id="preview-'+index+'"> </p>');
+	}else {
+		target.find('b').html(value);
+	}
+	equlizeWidthForChoices();
+});
+
+function appendPreviewImg(input) {
+	var index = $(input).parents('.display-choices-row').data('index');
+	alert(index);
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			// $('#preview-'+index).attr('src', e.target.result);
+		};
+
+		reader.readAsDataURL(input.files[0]);
+	}
 }

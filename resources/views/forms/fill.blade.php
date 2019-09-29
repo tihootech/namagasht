@@ -12,7 +12,7 @@
 
 	@elseif ($question)
 
-		<form action="{{url("form/fill/$form->id/$question->id")}}" method="post">
+		<form action="{{url("form/fill/$form->id/$question->id")}}" method="post" enctype="multipart/form-data">
 			@csrf
 			<input type="hidden" name="theme" value="{{session('theme')}}" id="form-theme-hidden-input">
 			@if ($preview)
@@ -198,8 +198,12 @@
 							@include('forms.displays.file')
 							<br>
 							<div class="custom-file mt-3 w-25">
-								<input type="file" name="user_file" class="custom-file-input" id="user-file">
-								<label class="custom-file-label" for="user-file" data-content="{{__('words.SELECT')}}"> {{__('words.CHOOSE_FILE')}} </label>
+								<input type="file" name="answer" class="custom-file-input" id="user-file">
+								<label class="custom-file-label" for="user-file" data-content="{{__('words.SELECT')}}">
+									<span id="choose"> {{__('words.CHOOSE_FILE')}} </span>
+									<span id="change" class="hidden"> {{__('words.CHANGE_FILE')}} </span>
+								</label>
+								<span class="text-success hidden"> {{__('words.FILE_SELECTED')}} </span>
 							</div>
 						@endif
 

@@ -3,7 +3,7 @@
 Route::view('/', 'welcome');
 
 // resource routes
-Route::resource('forms','FormController')->except(['show','create','destroy']);
+Route::resource('forms','FormController')->except(['show','create']);
 Route::get('form/question_positions/{form}', 'FormController@question_positions');
 Route::post('questions', 'FormController@question');
 Route::get('questions/{qid}/delete', 'FormController@delete_question');

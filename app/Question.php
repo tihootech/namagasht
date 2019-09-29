@@ -18,6 +18,11 @@ class Question extends Model
         return $this->hasMany(QuestionPointRule::class);
     }
 
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
     public function assets()
     {
         $output = $this->hasMany(QuestionAsset::class);
@@ -68,6 +73,12 @@ class Question extends Model
         return $asset ? $asset->content : null;
     }
 
+    public function get_asset_id($position)
+    {
+        $asset = QuestionAsset::where('question_id', $this->id)->where('position', $position)->first();
+        return $asset ? $asset->id : null;
+    }
+
     public function register_answer($filler_id, $body)
     {
         $answer = Answer::where('question_id', $this->id)->where('filler_id', $filler_id)->first();
@@ -81,22 +92,50 @@ class Question extends Model
         return $answer;
     }
 
-    public function update_choices($choices, $files=[])
+    public function update_choices($choices, $ids=[], $files=[])
     {
-        // first delete all question assets and files if any
-        foreach ($this->assets as $asset) {
+        // update records
+        foreach ($ids as $index => $id) {
+            $asset = QuestionAsset::find($id);
+            if ($asset) {
+                $asset->content = $choices[$index];
+                unset($choices[$index]);
+                if (isset($files[$index])) {
+                    if ($files[$index]) {
+                        $asset->image_path = upload($files[$index], $asset->image_path);
+                    }
+                    unset($files[$index]);
+                }
+                $asset->save();
+            }
+        }
+
+        // delete records
+        $assets = QuestionAsset::where('question_id', $this->id)->whereNotIn('id', $ids)->get();
+        foreach ($assets as $asset) {
             delete_file($asset->image_path);
             $asset->delete();
         }
-        // store new choices
-        foreach ($choices as $i => $choice) {
-            $asset = New QuestionAsset;
-            $asset->question_id = $this->id;
-            $asset->position = $i+1;
-            $asset->content = $choice;
-            if (isset($files[$i])) {
-                $asset->file_path = upload($files[$i]);
+
+        // store new records
+        foreach ($choices as $index => $choice) {
+            if ($choice) {
+                $asset = New QuestionAsset;
+                $asset->question_id = $this->id;
+                $asset->position = $index+1;
+                $asset->content = $choice;
+                if (isset($files[$index])) {
+                    $asset->image_path = upload($files[$index]);
+                }
+                $asset->save();
             }
+        }
+    }
+
+    public function sort_choices()
+    {
+        foreach ($this->assets as $index => $asset) {
+            $asset->position = $index+1;
             $asset->save();
         }
     }

@@ -39,6 +39,11 @@ class Form extends Model
         return $this->hasOne(Question::class)->where('position', 1);
     }
 
+    public function all_questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
     public function questions()
     {
         return $this->hasMany(Question::class)->where('type','!=','welcome_page')->where('type','!=','thanks_page')->orderBy('position');

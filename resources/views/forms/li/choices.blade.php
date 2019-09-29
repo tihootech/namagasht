@@ -5,7 +5,8 @@
 	<div class="form-group mt-3">
 		<div class="container-fluid choices-sortable" id="clone-container">
 			@for ($i=1; $i <= $question->assets_count_or_two(); $i++)
-				<div class="row align-items-center clone-row my-2">
+				<div class="row align-items-center clone-row my-2 display-choices-row" data-index="{{$i}}">
+					<input type="hidden" name="choices_id[]" value="{{$question->get_asset_id($i)}}">
 					<div class="col-1 draggable">
 						<i class="fa fa-arrows-v fa-half-x"></i>
 					</div>
@@ -17,8 +18,8 @@
 					</div>
 					@if ($fragment=='quiz_with_picture')
 						<div class="col-1">
-							<label class="fa fa-half-x fa-upload text-muted pointer mt-1" for="choice-file-{{$i}}"></label>
-							<input type="file" name="choices_file[]" id="choice-file-{{$i}}" class="hidden">
+							<label class="fa fa-half-x fa-upload text-primary pointer mt-1 choice-file-upload"></label>
+							<input type="file" name="choices_file[]" class="hidden" onchange="appendPreviewImg(this)">
 						</div>
 					@endif
 					<div class="col-1">

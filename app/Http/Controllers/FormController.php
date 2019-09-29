@@ -6,6 +6,7 @@ use App\Form;
 use App\Question;
 use App\Filler;
 use App\Answer;
+use App\QuestionAsset as Asset;
 use App\QuestionPointRule as Rule;
 
 use Carbon\Carbon;
@@ -125,7 +126,8 @@ class FormController extends Controller
             if (!is_array($choices)) {
                 $choices = explode("\r\n", $choices);
             }
-            $question->update_choices($choices, $request->choices_file);
+            $question->update_choices($choices, $request->choices_id, $request->choices_file);
+            $question->sort_choices();
         }
 
         // redirection
@@ -142,6 +144,10 @@ class FormController extends Controller
         $question->delete();
         $form = $question->form;
         $form->sort_questions_position();
+        foreach ($question->assets as $asset) {
+            delete_file($asset->image_path);
+            $asset->delete();
+        }
         $message = __('messages.ITEM_REMOVED_SUCCESSFULLY');
         return back()->withMessage($message);
     }
@@ -178,6 +184,9 @@ class FormController extends Controller
             if( !$request->preview && !in_array($question->type, Form::$filters) ) {
                 // register filler answer
                 $answer = is_array($request->answer) ? implode('&&&', $request->answer) : $request->answer;
+                if ($question->type == 'upload_file') {
+                    $answer = upload($request->answer);
+                }
                 $question->register_answer($filler->id, $answer);
             }
 
@@ -260,5 +269,35 @@ class FormController extends Controller
             $question->position = $i+1;
             $question->save();
         }
+    }
+
+    public function destroy(Form $form)
+    {
+
+        foreach ($form->all_questions as $question) {
+
+            foreach ($question->assets as $asset) {
+                delete_file($asset->image_path);
+            }
+            if ($question->type=='upload_file') {
+                foreach ($question->answers as $answer) {
+                    delete_file($answer->body);
+                }
+            }
+            delete_file($question->file_path);
+
+            Rule::where('question_id', $question->id)->delete();
+            Asset::where('question_id', $question->id)->delete();
+            Answer::where('question_id', $question->id)->delete();
+
+        }
+
+        Filler::where('form_id', $form->id)->delete();
+        Question::where('form_id', $form->id)->delete();
+        delete_file($form->bg_image);
+        $form->delete();
+
+        $message = __('messages.ITEM_REMOVED_SUCCESSFULLY');
+        return back()->withMessage($message);
     }
 }

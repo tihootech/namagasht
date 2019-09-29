@@ -9,13 +9,34 @@
 	</div>
 
 	<div class="container text-center">
-		@foreach ($forms as $form)
-			<div class="card form-list-item">
-				<a class="card-body" href="{{url("forms/$form->id/edit")}}">
-					{{$form->name}}
-				</a>
-			</div>
-		@endforeach
+		<div class="row justify-content-center">
+			@foreach ($forms as $form)
+				<div class="col-md-3">
+		            <div class="card mx-sm-1 p-3">
+						<div class="row">
+							<div class="col-6">
+								<a class="btn shadow btn-outline-success btn-block p-2" href="{{url("forms/$form->id/edit")}}">
+									<i class="fa fa-edit more-x"></i>
+								</a>
+							</div>
+							<div class="col-6">
+								<form action="{{url("forms/$form->id")}}" method="post">
+									@csrf
+									@method('DELETE')
+					                <button class="btn shadow btn-outline-danger btn-block p-2" type="submit">
+										<i class="fa fa-trash more-x"></i>
+									</button>
+								</form>
+							</div>
+						</div>
+						<hr>
+		                <div class="text-primary text-center mt-2">
+							<h1> {{$form->name}} </h1>
+						</div>
+		            </div>
+		        </div>
+			@endforeach
+	     </div>
 	</div>
 
 	<!-- The Modal -->
