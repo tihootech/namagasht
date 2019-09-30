@@ -369,6 +369,23 @@ $(document).on('click','.choice-file-upload',function () {
 	$(this).siblings('input').trigger('click');
 });
 
+function copyToClipboard(text) {
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val(text).select();
+	document.execCommand("copy");
+	$temp.remove();
+}
+
+$(document).on('click','.copy-text',function () {
+	$('.popover-body').html('<i class="fa fa-check text-success ml-1"></i>'+$(this).data('replacement-text'));
+	copyToClipboard($(this).data('content-to-copy'));
+});
+
+$(document).on('mouseleave','.copy-text',function () {
+	$(this).attr('data-content', $(this).data('initial-text'));
+});
+
 $(document).on('change','#user-file',function () {
 	$(this).siblings('span').show();
 	var target = $(this).siblings('label');

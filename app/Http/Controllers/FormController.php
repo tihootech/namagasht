@@ -155,15 +155,15 @@ class FormController extends Controller
     public function show_to_fill($form_uid, Question $question)
     {
         $form = Form::where('uid', $form_uid)->first();
-        if ($form) {
+        if (!$form || !$form->active) {
+            abort(404);
+        }else {
             $filler = Filler::where('uid', session('filler_uid'))->first();
             if (!$question->id || !$filler) {
                 $question = $form->welcome_page;
             }
             $preview = request('p');
             return view('forms.fill', compact('form', 'question', 'preview'));
-        }else {
-            abort(404);
         }
     }
 

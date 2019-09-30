@@ -83,6 +83,17 @@
 							<label> {{__('words.NO_PROGRESS_BAR')}} </label>
 						</div>
 						<hr>
+						<div class="form-group">
+							<span class="ml-2">
+								<label class="switch">
+									<input type="hidden" name="update[active]" value="0">
+									<input type="checkbox" name="update[active]" value="1" @if($form->active) checked @endif>
+									<span class="slider round"></span>
+								</label>
+							</span>
+							<label> {{__('words.ACTIVE')}} </label>
+						</div>
+						<hr>
 
 						<div class="text-center">
 							<button type="submit" class="btn btn-primary"> {{__('words.CONFIRM')}} </button>

@@ -17,6 +17,10 @@ select {
 	font-family: 'Yekan', 'Calibri', 'FontAwesome';
 }
 
+.popover {
+	font-family: 'Yekan', 'Calibri';
+}
+
 a {
 	cursor: pointer;
 }

@@ -121,4 +121,9 @@ class Form extends Model
             }
         }
     }
+
+    public function link()
+    {
+        return url("form/$this->uid");
+    }
 }

@@ -148,4 +148,13 @@ return [
     'NO_NEXT_BTN' => 'حذف دکمه قبلی',
     'NO_BACK_BTN' => 'حذف دکمه بعدی',
     'NO_PROGRESS_BAR' => 'عدم نمایش نوار پیشرفت',
+    'EDIT_AND_MANAGE' => 'مدیریت و ویرایش',
+    'ACTIVE' => 'فعال',
+    'INACTIVE' => 'غیرفعال',
+    'STATUS' => 'وضعیت',
+    'ARE_YOU_SURE' => 'آیا مطمئن هستید؟',
+    'SHARE_LINK' => 'لینک اشتراک گذاری',
+    'COPY_LINK' => 'کپی کردن لینک',
+    'DO_COPY' => 'کپی کردن',
+    'COPIED' => 'کپی شد',
 ];
