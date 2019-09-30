@@ -17,6 +17,7 @@ class CreateFormsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('uid')->unique();
+            $table->boolean('active')->default(1);
             $table->boolean('hidden_inputs')->default(0);
             $table->unsignedSmallInteger('theme')->default(1);
             $table->string('bg_image')->nullable();
@@ -25,6 +26,8 @@ class CreateFormsTable extends Migration
             $table->boolean('no_back')->default(0);
             $table->boolean('no_next')->default(0);
             $table->boolean('no_progress_bar')->default(0);
+            $table->boolean('email_informing_form_creator')->default(0);
+            $table->boolean('email_informing_answerer')->default(0);
             $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);
             $table->timestamps();

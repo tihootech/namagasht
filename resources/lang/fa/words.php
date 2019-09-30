@@ -141,4 +141,11 @@ return [
     'DO_CLICK' => 'کلیک کنید',
     'SEARCH_ON_DATE' => 'جستجو بر اساس تاریخ',
     'SEARCH_ON_POINT' => 'جستجو بر اساس امتیاز  ',
+    'BASE_SETTINGS' => 'تنظیمات پایه',
+    'FORM_NAME' => 'نام پرسشنامه',
+    'EMAIL_INFORMING_FORM_CREATOR' => 'با ثبت هر پاسخ از طراح فرم از طریق ایمیل مطلع شود',
+    'EMAIL_INFORMING_ANSWERER' => 'پاسخ دهنده از طریق ایمیل مطلع شود',
+    'NO_NEXT_BTN' => 'حذف دکمه قبلی',
+    'NO_BACK_BTN' => 'حذف دکمه بعدی',
+    'NO_PROGRESS_BAR' => 'عدم نمایش نوار پیشرفت',
 ];
