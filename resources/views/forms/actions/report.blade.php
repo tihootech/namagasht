@@ -197,9 +197,63 @@
 				@foreach ($form->questions as $question)
 
 					<div class="px-1 px-md-3">
-						<h4> {{$question->position}}. {{$question->title}} </h4>
+						<h4 class="mb-4"> {{$question->position}}. {{$question->title}} </h4>
 						@if ($question->range || $question->assets->count())
-							@include('forms.partials.action_charts')
+							<ul class="nav nav-tabs">
+								<li class="nav-item">
+									<a class="nav-link active" data-toggle="tab" href="#linear-{{$question->id}}" role="tab"> <i class="more-x fa fa-line-chart"></i> </a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" data-toggle="tab" href="#datatable-{{$question->id}}"><i class="more-x fa fa-table"></i></a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" data-toggle="tab" href="#pie-{{$question->id}}"><i class="more-x fa fa-pie-chart"></i></a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" data-toggle="tab" href="#bar-{{$question->id}}"><i class="more-x fa fa-bar-chart"></i></a>
+								</li>
+							</ul>
+							<div class="tab-content p-4">
+								<div class="tab-pane fade show active" id="linear-{{$question->id}}">
+									<canvas id="question-chart-line-{{$question->id}}" height="125"></canvas>
+								</div>
+								<div class="tab-pane fade" id="datatable-{{$question->id}}">
+									<table class="table table-striped table-bordered">
+										<thead>
+											<tr>
+												<th> {{__('words.CHOICE')}} </th>
+												<th> {{__('words.ANSWER_COUNT')}} </th>
+												<th> {{__('words.AMOUNT_PERCENT')}} </th>
+											</tr>
+										</thead>
+										<tbody>
+											@if($question->assets->count())
+												@foreach ($question->assets as $asset)
+													<tr>
+														<td> {{$asset->content}} </td>
+														<td> {{$question->count_answers($asset->content)}} </td>
+														<td> {{$question->answer_percent($asset->content)}}% </td>
+													</tr>
+												@endforeach
+											@elseif($question->range)
+												@for($i=$question->range_start(); $i<=$question->range_end(); $i++)
+													<tr>
+														<td> {{$i}} </td>
+														<td> {{$question->count_answers($i)}} </td>
+														<td> {{$question->answer_percent($i)}}% </td>
+													</tr>
+												@endfor
+											@endif
+										</tbody>
+									</table>
+								</div>
+								<div class="tab-pane fade" id="pie-{{$question->id}}">
+									<canvas id="question-chart-pie-{{$question->id}}" height="125"></canvas>
+								</div>
+								<div class="tab-pane fade" id="bar-{{$question->id}}">
+									<canvas id="question-chart-bar-{{$question->id}}" height="125"></canvas>
+								</div>
+							</div>
 						@else
 							<p class="text-center py-3"> <i class="fa fa-warning ml-1"></i> {{__('messages.NO_CHART')}} </p>
 						@endif

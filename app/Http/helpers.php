@@ -46,3 +46,9 @@ function prepare_multiple($inputs)
     }
     return $result;
 }
+
+function random_rgba($opacity=null)
+{
+    $opacity = $opacity ?? rand(0,10)/10;
+    return "rgba(".rand(1,255).", ".rand(1,255).", ".rand(1,255).", $opacity)";
+}

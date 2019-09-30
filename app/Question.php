@@ -175,4 +175,23 @@ class Question extends Model
             return self::where('form_id', $this->form_id)->whereNotIn('type', Form::$filters)->where('position', '<', $this->position)->count();
         }
     }
+
+    public function count_answers($content)
+    {
+        $count = 0;
+        foreach ($this->answers as $answer) {
+            $answers = explode('&&&', $answer->body);
+            if (in_array($content, $answers)) {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
+    public function answer_percent($content)
+    {
+        $count = $this->count_answers($content);
+        $total = $this->answers->count();
+        return round($count/$total*100,1);
+    }
 }

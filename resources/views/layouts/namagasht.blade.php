@@ -35,6 +35,9 @@
 	<script src="{{asset('/js/app.js')}}" charset="utf-8"></script>
 	<script src="{{asset('/js/pdp.min.js')}}" charset="utf-8"></script>
 	<script src="{{asset('/js/jquery-ui.js')}}" charset="utf-8"></script>
+	<script src="{{asset('/js/charts.js')}}" charset="utf-8"></script>
 	<script src="{{asset('/js/namagasht.js')}}" charset="utf-8"></script>
+	@include('main.scripts')
+
 </body>
 </html>
