@@ -406,6 +406,113 @@ $(document).on('input','.display-choices-row .choices',function () {
 	equlizeWidthForChoices();
 });
 
+$(document).on('submit','#filling-form',function (e) {
+	var input = $('[data-validate-type]');
+	return formValidation(input);
+});
+
+$(document).on('input','[data-validate-type]',function (e) {
+	return formValidation($(this));
+});
+
+function formValidation(input) {
+
+	// initial values
+	var type = input.data('validate-type');
+	var min = input.data('min');
+	var max = input.data('max');
+	var required = input.data('required');
+	var decimalAllowed = input.data('decimal-allowed');
+	var value = input.val();
+
+	// required check
+	if (required && !value) {
+		$('.required-error').slideDown();
+		return false;
+	}else {
+		$('.required-error').hide();
+
+		// text and textarea validation
+		if (type=='text' || type=='textarea') {
+			if (min != undefined && value.length < min) {
+				$('.min-char-error').slideDown();
+				return false;
+			}else {
+				$('.min-char-error').hide();
+			}
+			if (max != undefined && value.length > max) {
+				$('.max-char-error').slideDown();
+				return false;
+			}else {
+				$('.max-char-error').hide();
+			}
+		}
+
+		// numeric validation
+		if (type == 'number') {
+			if (value && !$.isNumeric(value)) {
+				$('.not-numeric-error').slideDown();
+				return false;
+			}else {
+				$('.not-numeric-error').hide();
+			}
+			if (!decimalAllowed && value%1 != 0) {
+				$('.no-decimal-error').slideDown();
+				return false;
+			}else {
+				$('.no-decimal-error').hide();
+			}
+		}
+
+		// email validation
+		if (type == 'email') {
+			if(!isEmail(value)){
+				$('.not-email-error').slideDown();
+				return false;
+			}else {
+				$('.not-email-error').hide();
+			}
+		}
+
+		// link validation
+		if (type == 'link') {
+			if(!isLink(value)){
+				$('.not-link-error').slideDown();
+				return false;
+			}else {
+				$('.not-link-error').hide();
+			}
+		}
+
+		// quiz & quiz_with_picture validation
+		if (type == 'quiz' || type=='quiz_with_picture') {
+			var count = value.split('&&&').length;
+			if (max != undefined && max < count) {
+				$('.items-max-error').slideDown();
+				return false;
+			}else {
+				$('.items-max-error').hide();
+			}
+		}
+	}
+
+}
+
+function isEmail(str) {
+	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	return emailReg.test( str );
+}
+
+function isLink(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
+
 function appendPreviewImg(input) {
 	var index = $(input).parents('.display-choices-row').data('index');
 	alert(index);

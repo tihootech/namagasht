@@ -396,8 +396,11 @@ input[disabled] {
 
 #display-choices > p > img {
 	max-width: 200px;
-	margin: 10px;
 	display: block;
+}
+
+#display-choices > p > img[src] {
+	margin: 10px;
 }
 
 .porsline-select {

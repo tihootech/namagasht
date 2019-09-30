@@ -1,5 +1,16 @@
 <?php
 return [
+    'MAX_FILE_SIZE' => 'فایل موردنظر باید ماکسیمم :max کیلوبایت باشد.',
+    'MIN_CHAR_ERROR' => 'حداقل :n کاراکتر باید وارد کنید',
+    'MAX_CHAR_ERROR' => 'حداکثر :n کاراکتر باید وارد کنید',
+    'MIN_NUMBER_ERROR' => 'کوچکترین عدد مجاز :n میباشد',
+    'MAX_NUMBER_ERROR' => 'بزرگترین عدد مجاز :n میباشد',
+    'ITEMS_MAX_ERROR' => 'شما ماکسیمم میتوانید :n مورد انتخاب کنید',
+    'REQUIRED_ERROR' => 'پاسخ به این سوال اجباری است',
+    'NOT_NUMERIC_ERROR' => 'پاسخ وارد شده عدد نیست',
+    'NO_DECIMAL_ERROR' => 'عدد اعشاری مجاز نیست',
+    'NOT_EMAIL_ERROR' => 'پاسخ وارد شده ایمیل نیست',
+    'NOT_LINK_ERROR' => 'پاسخ وارد شده لینک نیست',
     'CHANGES_MADE_SUCCESSFULLY' => 'تغییرات با موفقیت ذخیره شد',
     'FORM_CREATED_SUCCESSFULLY' => 'فرم مورد نظر ایجاد شد.',
     'NO_CHECKED_ID' => 'لطفا حداقل یکی از موارد را تیک بزنید.',

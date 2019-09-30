@@ -181,7 +181,7 @@ class FormController extends Controller
         }
         if ($request->dir == 'next') {
 
-            if( !$request->preview && !in_array($question->type, Form::$filters) ) {
+            if( !in_array($question->type, Form::$filters) ) {
                 // register filler answer
                 $answer = is_array($request->answer) ? implode('&&&', $request->answer) : $request->answer;
                 if ($question->type == 'upload_file') {

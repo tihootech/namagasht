@@ -77,6 +77,7 @@ return [
     'FILL_FORM' => 'پرکردن فرم',
     'NEXT' => 'بعدی',
     'PREV' => 'قبلی',
+    'DOWNLOAD_FILE' => 'دانلود فایل',
     'ANSWERED' => 'پاسخ داده شده',
     'FROM' => 'از',
     'QUESTION_TYPE' => 'نوع سوال',

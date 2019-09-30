@@ -12,7 +12,7 @@
 
 	@elseif ($question)
 
-		<form action="{{url("form/fill/$form->id/$question->id")}}" method="post" enctype="multipart/form-data">
+		<form action="{{url("form/fill/$form->id/$question->id")}}" method="post" enctype="multipart/form-data" id="filling-form">
 			@csrf
 			<input type="hidden" name="theme" value="{{session('theme')}}" id="form-theme-hidden-input">
 			@if ($preview)
@@ -117,7 +117,7 @@
 									</p>
 								@endforeach
 							</div>
-							<input type="hidden" name="answer" value="{{$question->raw_answer(session('filler_uid'))}}">
+							<input type="hidden" name="answer" value="{{$question->raw_answer(session('filler_uid'))}}" data-validate-type="{{$question->type}}" data-required="{{$question->required}}" @if($question->multiple && $question->max) data-max="{{$question->max}}" @endif>
 							<button type="submit" class="btn btn-primary mt-4" name="dir" value="next"> {{__('words.CONFIRM')}} </button>
 						@endif
 
@@ -128,7 +128,7 @@
 							@include('forms.displays.file')
 							<div class="porsline-select">
 								<label class="fa fa-angle-down fa-2x" for="search"></label>
-								<input type="text" id="search" class="porsline porsline-input" autocomplete="off" name="answer" placeholder="{{__('words.CHOOSE_OR_TYPE_ANSWER')}}..." value="{{$question->raw_answer(session('filler_uid'))}}">
+								<input type="text" id="search" class="porsline porsline-input" autocomplete="off" name="answer" placeholder="{{__('words.CHOOSE_OR_TYPE_ANSWER')}}..." value="{{$question->raw_answer(session('filler_uid'))}}" data-validate-type="{{$question->type}}" data-required="{{$question->required}}" >
 								<div class="porsline-select-dropdown">
 									@foreach ($question->assets as $asset)
 										<p>{{$asset->content}}</p>
@@ -160,7 +160,7 @@
 									</span>
 								</div>
 							</div>
-							<input type="hidden" name="answer" id="range-answer" value="{{$question->raw_answer(session('filler_uid'))}}">
+							<input type="hidden" name="answer" id="range-answer" value="{{$question->raw_answer(session('filler_uid'))}}" data-validate-type="{{$question->type}}" data-required="{{$question->required}}" >
 							<button type="submit" class="btn btn-primary mt-4" name="dir" value="next"> {{__('words.CONFIRM')}} </button>
 						@endif
 
@@ -173,7 +173,7 @@
 									<p data-index="{{$i}}"> <i class="fa fa-{{$question->shape ?? 'star'}}-o"></i> <span>{{$i}}</span> </p>
 								@endfor
 							</div>
-							<input type="hidden" name="answer" id="levelize-answer" value="{{$question->raw_answer(session('filler_uid'))}}">
+							<input type="hidden" name="answer" id="levelize-answer" value="{{$question->raw_answer(session('filler_uid'))}}" data-validate-type="{{$question->type}}" data-required="{{$question->required}}" >
 							<button type="submit" class="btn btn-primary mt-4" name="dir" value="next"> {{__('words.CONFIRM')}} </button>
 						@endif
 
@@ -198,16 +198,50 @@
 							@include('forms.displays.file')
 							<br>
 							<div class="custom-file mt-3 w-25">
-								<input type="file" name="answer" class="custom-file-input" id="user-file">
+								<input type="file" name="answer" class="custom-file-input" id="user-file" data-validate-type="{{$question->type}}" data-required="{{$question->required}}">
 								<label class="custom-file-label" for="user-file" data-content="{{__('words.SELECT')}}">
 									<span id="choose"> {{__('words.CHOOSE_FILE')}} </span>
 									<span id="change" class="hidden"> {{__('words.CHANGE_FILE')}} </span>
 								</label>
+								<span class="text-info">
+									<i class="fa fa-asterisk ml-1"></i> {{__('messages.MAX_FILE_SIZE', ['max'=>$question->max])}}
+								</span>
 								<span class="text-success hidden"> {{__('words.FILE_SELECTED')}} </span>
 							</div>
 						@endif
 
 					@endif
+
+					<div class="alert alert-danger w-50 mt-3 required-error hidden">
+						{{__('messages.REQUIRED_ERROR')}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 not-email-error hidden">
+						{{__('messages.NOT_EMAIL_ERROR')}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 not-link-error hidden">
+						{{__('messages.NOT_LINK_ERROR')}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 not-numeric-error hidden">
+						{{__('messages.NOT_NUMERIC_ERROR')}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 no-decimal-error hidden">
+						{{__('messages.NO_DECIMAL_ERROR')}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 min-number-error hidden">
+						{{__('messages.MIN_NUMBER_ERROR', ['n'=>$question->min])}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 max-number-error hidden">
+						{{__('messages.MAX_NUMBER_ERROR', ['n'=>$question->max])}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 min-char-error hidden">
+						{{__('messages.MIN_CHAR_ERROR', ['n'=>$question->min])}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 max-char-error hidden">
+						{{__('messages.MAX_CHAR_ERROR', ['n'=>$question->max])}}
+					</div>
+					<div class="alert alert-danger w-50 mt-3 items-max-error hidden">
+						{{__('messages.ITEMS_MAX_ERROR', ['n'=>$question->max])}}
+					</div>
 
 				</div>
 

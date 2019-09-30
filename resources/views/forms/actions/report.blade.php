@@ -167,6 +167,14 @@
 													<li>{{$item}}</li>
 												@endforeach
 											</ul>
+										@elseif($question->type == 'upload_file')
+											@if ($question->raw_answer($filler->uid))
+												<a href="{{asset($question->raw_answer($filler->uid))}}" download>
+													{{__('words.DOWNLOAD_FILE')}}
+												</a>
+											@else
+												<em> - </em>
+											@endif
 										@else
 											 {{$question->raw_answer($filler->uid)}}
 										@endif
