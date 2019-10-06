@@ -15,6 +15,9 @@
 		<form action="{{url("form/fill/$form->id/$question->id")}}" method="post" enctype="multipart/form-data" id="filling-form">
 			@csrf
 			<input type="hidden" name="theme" value="{{session('theme')}}" id="form-theme-hidden-input">
+			@foreach (request()->all() as $name => $value)
+				<input type="hidden" name="hiddens[{{$name}}]" value="{{$value}}">
+			@endforeach
 			@if ($preview)
 				<input type="hidden" name="preview" value="1">
 			@endif

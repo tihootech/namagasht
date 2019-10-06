@@ -6,6 +6,7 @@ use App\Form;
 use App\Question;
 use App\Filler;
 use App\Answer;
+use App\Exports\FormsExport;
 use App\QuestionAsset as Asset;
 use App\QuestionPointRule as Rule;
 
@@ -19,6 +20,12 @@ class FormController extends Controller
     {
         $forms = Form::latest()->get();
         return view('forms.index', compact('forms'));
+    }
+
+    public function excel($form_id)
+    {
+        session(compact('form_id'));
+        return \Excel::download(new FormsExport, 'report.xlsx');
     }
 
     public function store(Request $request)
@@ -169,11 +176,11 @@ class FormController extends Controller
 
     public function fill(Form $form, Question $question, Request $request)
     {
-
         // create filler in database an store his unique id in session if not already happened
         $filler = Filler::where('uid', session('filler_uid'))->first();
-        if (!$filler) {
-            $filler = $form->add_filler();
+        if (!$filler && !$request->preview) {
+            $hiddens = ($form->hidden_inputs && is_array($request->hiddens)) ? http_build_query($request->hiddens,'','&') : null;
+            $filler = $form->add_filler($hiddens);
             $filler_uid = $filler->uid;
             session(compact('filler_uid'));
             $first_question = $form->first_question;

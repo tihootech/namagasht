@@ -54,13 +54,14 @@ class Form extends Model
         return Question::where('form_id', $this->id)->whereNotIn('type', self::$filters)->count();
     }
 
-    public function add_filler()
+    public function add_filler($hiddens=null)
     {
         $filler = new Filler;
         $filler->uid = random_sha();
         $filler->client_ip = request()->getClientIp();
         $filler->device = isMobileDevice() ? 'mobile' : 'laptop';
         $filler->form_id = $this->id;
+        $filler->hiddens = $hiddens;
         $filler->save();
         return $filler;
     }

@@ -5,6 +5,7 @@ Route::view('/', 'welcome');
 // resource routes
 Route::resource('forms','FormController')->except(['show','create']);
 Route::get('form/question_positions/{form}', 'FormController@question_positions');
+Route::get('form/excel/{form}', 'FormController@excel');
 Route::post('questions', 'FormController@question');
 Route::get('questions/{qid}/delete', 'FormController@delete_question');
 Route::get('form/{form_uid}/{question?}', 'FormController@show_to_fill');

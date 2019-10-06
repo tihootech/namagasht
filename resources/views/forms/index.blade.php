@@ -14,17 +14,22 @@
 				<div class="col-md-4">
 		            <div class="card mx-sm-1 p-3">
 						<div class="row">
-							<div class="col-4" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.PREVIEW')}}" >
+							<div class="col-3" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.PREVIEW')}}" >
 								<a class="btn shadow btn-outline-primary btn-block p-2" href="{{url("form/$form->uid?p=1")}}">
 									<i class="fa fa-eye more-x"></i>
 								</a>
 							</div>
-							<div class="col-4" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.EDIT_AND_MANAGE')}}" >
+							<div class="col-3" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.SEE_RESULTS')}}" >
+								<a class="btn shadow btn-outline-secondary btn-block p-2" href="{{url("form/$form->id/action/report")}}">
+									<i class="fa fa-line-chart more-x"></i>
+								</a>
+							</div>
+							<div class="col-3" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.EDIT_AND_MANAGE')}}" >
 								<a class="btn shadow btn-outline-success btn-block p-2" href="{{url("forms/$form->id/edit")}}">
 									<i class="fa fa-edit more-x"></i>
 								</a>
 							</div>
-							<div class="col-4" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.DELETE')}}" >
+							<div class="col-3" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="{{__('words.DELETE')}}" >
 								<form action="{{url("forms/$form->id")}}" method="post">
 									@csrf
 									@method('DELETE')
